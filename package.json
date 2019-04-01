@@ -1,0 +1,25 @@
+{
+  "name": "rocket_app",
+  "version": "1.0.0",
+  "description": "My diplom project and MERN stack starter",
+  "main": "server.js",
+  "repository": "https://github.com/RocketGumb/RocketApp.git",
+  "author": "Dmitrii <golubev.rocket@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "client-install": "npm run --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}

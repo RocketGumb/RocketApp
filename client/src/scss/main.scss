@@ -1,0 +1,122 @@
+@import 'mixin';
+@import 'fonts';
+@import 'vars';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  @include font-style;
+  background-color: $cBackground;
+}
+
+input::-webkit-input-placeholder {
+  opacity: 1;
+  @include transition;
+}
+
+input::-moz-placeholder {
+  opacity: 1;
+  @include transition;
+}
+
+input:-moz-placeholder {
+  opacity: 1;
+  @include transition;
+}
+
+input:-ms-input-placeholder {
+  opacity: 1;
+  @include transition;
+}
+
+input:focus::-webkit-input-placeholder {
+  opacity: 0;
+  @include transition;
+}
+
+input:focus::-moz-placeholder {
+  opacity: 0;
+  @include transition;
+}
+
+input:focus:-moz-placeholder {
+  opacity: 0;
+  @include transition;
+}
+
+input:focus:-ms-input-placeholder {
+  opacity: 0;
+  @include transition;
+}
+
+
+input[type=text],
+input[type=email],
+input[type=tel],
+button {
+  @include font-style;
+  color: $cTextTitle;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+}
+
+ul,
+ol,
+menu {
+  list-style-type: none;
+}
+
+.pagetitle {
+  padding: 20px 30px;
+  background: $cWhite;
+  @include font-style(bold, 24px, 1, $cTextTitle);
+  @include box-shadow-big;
+}
+
+.white,
+.white * {
+  color: $cWhite !important;
+}
+
+.btn {
+  border: none;
+  background: $cMain;
+  color: $cWhite;
+  padding: 10px 25px;
+  cursor: pointer;
+  @include transition;
+
+  &:hover {
+    background: $cMainHover;
+  }
+}
+
+.fadeIn-enter {
+  opacity: 0;
+
+  &.fadeIn-enter-active {
+    opacity: 1;
+    @include transition;
+  }
+}
+
+.fadeIn-leave {
+  opacity: 1;
+
+  &.fadeIn-leave-active {
+    opacity: 0;
+    @include transition;
+  }
+}
+
+
+@import 'style';
+@import 'media';
