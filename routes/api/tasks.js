@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 
 // Task model
 const Task = require("../../models/task");
 
 /**
- * @route  Get api/tasks
+ * @route  GET api/tasks
  * @desc   Get all tasks
  * @access Public
  */
@@ -18,11 +19,11 @@ router.get("/", (req, res) => {
 });
 
 /**
- * @route  Post api/tasks
+ * @route  POST api/tasks
  * @desc   Create At Task
- * @access Public
+ * @access Private
  */
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
 	const newTask = new Task({
 		title: req.body.title
 	});
@@ -33,11 +34,11 @@ router.post("/", (req, res) => {
 });
 
 /**
- * @route  Delete api/tasks/:id
+ * @route  DELETE api/tasks/:id
  * @desc   Delete A Task
- * @access Public
+ * @access Private
  */
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
 	Task.findById(req.params.id)
 		.then(task => task.remove())
 		.then(() => res.json({

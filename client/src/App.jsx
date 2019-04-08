@@ -11,19 +11,18 @@ import "./scss/main.scss";
  */
 
 import All from "./pages/All";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 const Home = () => {
 	return (
 		<Fragment>
 			<h1>Home</h1>
 			<Link to="/all">Конетнт</Link>
-			<Link to="/login">Форма</Link>
+			<Link to="/signin">Войти</Link>
+			<Link to="/signup">Регистрация</Link>
 		</Fragment>
 	);
-};
-
-const Login = () => {
-	return <h1>Login</h1>;
 };
 
 const NotFound = () => {
@@ -37,7 +36,8 @@ class App extends Component {
 				<Router>
 					<Switch>
 						<Route exact path="/" component={Home} />
-						<Route path="/login" component={Login} />
+						<Route path="/signin" component={Login} />
+						<Route path="/signup" component={Register} />
 						<Route path="/all" component={All} />
 						<Route component={NotFound} />
 					</Switch>

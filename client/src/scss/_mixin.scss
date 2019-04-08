@@ -41,6 +41,15 @@
   display: block;
 }
 
-@mixin transition {
-  transition: all .4s ease;
+@mixin transition ($delay: .4s) {
+  transition: all $delay ease;
+}
+
+@mixin background ($imagePath, $size: cover, $position: center, $repeat: no-repeat) {
+  background: {
+    image: linear-gradient(rgba($cMain, .1), rgba($cMain, .1)), url($imagePath);
+    size: $size;
+    position: $position;
+    repeat: $repeat;
+  }
 }

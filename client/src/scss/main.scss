@@ -54,13 +54,89 @@ input:focus:-ms-input-placeholder {
   @include transition;
 }
 
+.h1 {
+  font-size: 48px;
+}
+
+.h2 {
+  font-size: 36px;
+}
+
+.h3 {
+  font-size: 24px;
+}
+
+.error-message {
+  @include font-style(300, 14px, 1, $cRed);
+  width: 100%;
+  margin-top: 5px;
+}
+
+label {
+  cursor: pointer;
+
+  &.label-row {
+    @include flex(flex-start, center);
+
+    p {
+      @include font-style(normal, 14px, 1, $cTextSmall);
+    }
+  }
+}
 
 input[type=text],
 input[type=email],
 input[type=tel],
+input[type=password],
 button {
   @include font-style;
   color: $cTextTitle;
+}
+
+.checkbox-template {
+  transform: none;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  margin-right: 15px;
+
+  &::before {
+    margin-right: 10px;
+    content: '';
+    display: inline-block;
+    transform: translate(-4px, -4px);
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: #dae2e7;
+    @include transition;
+  }
+
+  &::after {
+    content: '\f00c';
+    width: 14px;
+    height: 14px;
+    line-height: 15px;
+    text-align: center;
+    display: block;
+    font-family: 'FontAwesome';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    font-size: 0.9em;
+    opacity: 0;
+    @include transition;
+    color: #fff;
+  }
+
+  &:checked::before {
+    background: #796AEE;
+  }
+
+  &:checked::after {
+    opacity: 1;
+  }
 }
 
 a,
@@ -93,6 +169,7 @@ menu {
   padding: 10px 25px;
   cursor: pointer;
   @include transition;
+  min-width: 150px;
 
   &:hover {
     background: $cMainHover;

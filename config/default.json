@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb://localhost/rocket_app",
+  "jwtSecret": "RocketApp_jwtSecret"
+}

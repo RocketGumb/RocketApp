@@ -5,17 +5,202 @@
 
   &_container {
     padding: 15px 30px;
+    height: 100%;
     position: relative;
     z-index: 12;
+    @include flex(space-between, center);
     @include box-shadow-big;
   }
 
   &_title {
     @include font-style(normal, 28px)
   }
+
+  &_user {
+    height: 100%;
+    position: relative;
+    @include font-style(300, 16px, 1, rgba($cWhite, .9));
+    @include flex(flex-start, center);
+
+    img {
+      width: auto;
+      height: 100%;
+      margin-right: 15px;
+    }
+
+    &__setting {
+      margin-left: 15px;
+      display: block;
+      cursor: pointer;
+
+      &__modal {
+        position: absolute;
+        top: calc(100% + 15px);
+        right: -30px;
+        min-width: calc(100% + 30px);
+        background: $cWhite;
+        padding: 10px;
+        @include box-shadow-big;
+
+        & * {
+          cursor: pointer;
+          color: $cMain;
+          @include transition;
+
+          &:hover {
+            color: $cMainHover;
+          }
+        }
+
+        p {
+          padding: 5px 0;
+          color: $cMain;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
 }
 
 // end Header
+
+
+//start Auth
+.auth {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  &_back {
+    margin-top: 35px;
+    @include font-style(300, 14px, 1, $cTextSmall);
+
+    a {
+      padding-left: 5px;
+      font-weight: normal;
+      color: $cMain;
+      @include transition;
+
+      &:hover {
+        color: $cMainHover;
+      }
+    }
+  }
+
+  &::before {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    filter: blur(10px);
+    @include pseudo;
+    @include background('../images/auth-bg2.jpg');
+    // background-color: $cMain;
+  }
+
+  &_block {
+    position: absolute;
+    width: 80%;
+    height: 76%;
+    top: 13%;
+    left: 10%;
+    @include flex(center, center);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+
+    &__title {
+      width: 50%;
+      height: 100%;
+      padding: 30px;
+      background-color: rgba($cMain, .85);
+      flex-direction: column;
+      color: $cWhite;
+      position: relative;
+      @include flex(center, flex-start);
+
+      .link-to-back {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        @include font-style(300, 14px, 1, $cWhite);
+        @include transition;
+
+        &:hover {
+          color: $cWhiteHover;
+        }
+      }
+    }
+
+    &__form {
+      width: 50%;
+      height: 100%;
+      padding: 40px;
+      background-color: $cWhite;
+      flex-direction: column;
+      @include flex(center, flex-start);
+
+      &>* {
+        width: 100%;
+      }
+
+      .label-row {
+        margin-top: 40px;
+      }
+
+      &_item {
+        margin-top: 40px;
+        position: relative;
+
+        & .error-message {
+          position: absolute;
+        }
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        input {
+          width: 100%;
+          border: none;
+          border-bottom: 1px solid rgba($cTextSmall, .3);
+          padding: 10px 0;
+          @include transition;
+
+          &:focus,
+          &:valid {
+            border-color: $cMain;
+
+            &~label {
+              font-size: 14px;
+              color: $cMain;
+              top: -10px;
+            }
+          }
+        }
+
+        label {
+          position: absolute;
+          top: 14px;
+          left: 0;
+          cursor: text;
+          font-weight: 300;
+          @include transition(.2s);
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 50px;
+        border-radius: 6px;
+      }
+    }
+  }
+}
+
+// end Auth
 
 
 // start Dashboard
@@ -138,7 +323,7 @@
       padding-top: 1px;
 
       &_item {
-        padding: 10px 15px;
+        padding: 15px 15px;
         cursor: pointer;
         @include flex(flex-start, center);
 
@@ -146,54 +331,8 @@
           background: $cWhiteHover;
         }
 
-        .checkbox-template {
-          transform: none;
-          user-select: none;
-          cursor: pointer;
-          position: relative;
-          margin-right: 15px;
-
-          &::before {
-            margin-right: 10px;
-            content: '';
-            display: inline-block;
-            transform: translate(-2px, -2px);
-            width: 18px;
-            height: 18px;
-            line-height: 18px;
-            text-align: center;
-            background: #dae2e7;
-            @include transition;
-          }
-
-          &::after {
-            content: '\f00c';
-            width: 12px;
-            height: 12px;
-            line-height: 12px;
-            text-align: center;
-            display: block;
-            font-family: 'FontAwesome';
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            font-size: 0.7em;
-            opacity: 0;
-            @include transition;
-            color: #fff;
-          }
-
-          &:checked::before {
-            background: #796AEE;
-          }
-
-          &:checked::after {
-            opacity: 1;
-          }
-        }
-
         p {
-          @include font-style(normal, 14px, 24px, $cText);
+          @include font-style(normal, 15px, 24px, $cTextTitle);
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;

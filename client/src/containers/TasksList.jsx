@@ -32,7 +32,6 @@ class TasksList extends Component {
 					buttonIsOpen={this.state.buttonIsOpen}
 					addButtonShow={this.addButtonToggle}
 					addButtonHide={this.addButtonToggle}
-					value=""
 				/>
 				<ul className="tasks-list">
 					<ReactCSSTransitionGroup

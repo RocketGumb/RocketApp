@@ -1,20 +1,26 @@
 import React, { Fragment, Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { Route, Switch, Redirect } from "react-router-dom";
+import store from "../store";
+import { loadUser } from "../actions/authActions";
 
-// import Containers
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Header from "./template/Header";
+import Sidebar from "../containers/Sidebar";
 import Tasks from "./Tasks";
-import Footer from "./Footer";
+import Footer from "./template/Footer";
 
 const Charts = () => {
 	return <h1>Charts</h1>;
 };
 
 class All extends Component {
+	componentDidMount() {
+		if (!this.props.isAuthenticated) store.dispatch(loadUser());
+	}
 	render() {
 		return (
 			<Fragment>
+				{!this.props.isAuthenticated ? <Redirect to="/signin" /> : ""}
 				<Header />
 				<section className="dashboard">
 					<Sidebar />
@@ -31,4 +37,13 @@ class All extends Component {
 	}
 }
 
-export default All;
+const mapStateToProps = state => {
+	return {
+		isAuthenticated: state.auth.isAuthenticated
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	null
+)(All);
