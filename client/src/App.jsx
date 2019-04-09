@@ -34,19 +34,19 @@ class App extends Component {
 				<Switch>
 					<Route exact path="/" component={Home} />
 					<PrivateRoute
-						token={this.props.token === ""}
+						token={this.props.token === null}
 						path="/signin"
 						component={Login}
 						redirectPath="/all"
 					/>
 					<PrivateRoute
-						token={this.props.token === ""}
+						token={this.props.token === null}
 						path="/signup"
 						component={Register}
 						redirectPath="/all"
 					/>
 					<PrivateRoute
-						token={this.props.token !== ""}
+						token={this.props.token !== null}
 						path="/all"
 						component={All}
 						redirectPath="/signin"

@@ -39,7 +39,7 @@ export default function(state = inititalState, action) {
 				isLoading: false
 			};
 		case LOGOUT_SUCCESS:
-			localStorage.setItem("token", "");
+			localStorage.setItem("token", null);
 			return {
 				...state,
 				token: null,
