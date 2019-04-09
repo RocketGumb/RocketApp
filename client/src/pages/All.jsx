@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import store from "../store";
 import { loadUser } from "../actions/authActions";
 
@@ -15,12 +15,11 @@ const Charts = () => {
 
 class All extends Component {
 	componentDidMount() {
-		if (!this.props.isAuthenticated) store.dispatch(loadUser());
+		store.dispatch(loadUser());
 	}
 	render() {
 		return (
 			<Fragment>
-				{!this.props.isAuthenticated ? <Redirect to="/signin" /> : ""}
 				<Header />
 				<section className="dashboard">
 					<Sidebar />
@@ -39,7 +38,8 @@ class All extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isAuthenticated: state.auth.isAuthenticated
+		isAuthenticated: state.auth.isAuthenticated,
+		isLoading: state.auth.isLoading
 	};
 };
 

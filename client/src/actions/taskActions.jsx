@@ -3,9 +3,9 @@ import axios from "axios";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorAction";
 
-export const getTasks = () => dispatch => {
+export const getTasks = id => (dispatch, getState) => {
 	axios
-		.get("/api/tasks")
+		.get(`/api/tasks/${id}`, tokenConfig(getState))
 		.then(res =>
 			dispatch({
 				type: GET_TASKS,
@@ -17,9 +17,9 @@ export const getTasks = () => dispatch => {
 		);
 };
 
-export const addTask = title => (dispatch, getState) => {
+export const addTask = (id, title) => (dispatch, getState) => {
 	axios
-		.post("/api/tasks", { title }, tokenConfig(getState))
+		.post("/api/tasks", { id, title }, tokenConfig(getState))
 		.then(res =>
 			dispatch({
 				type: ADD_TASK,

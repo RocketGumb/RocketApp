@@ -12,15 +12,44 @@ class TasksList extends Component {
 	};
 
 	// Show and hide the button for add a task
-	addButtonToggle = () => {
+	addButtonToggle() {
 		this.setState({
 			buttonIsOpen: !this.state.buttonIsOpen
 		});
-	};
+	}
 
 	// Output tasks
 	componentDidMount() {
-		this.props.getTasks();
+		if (this.props.user) {
+			const id = this.props.user._id;
+			this.props.getTasks(id);
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		const { user } = this.props;
+		if (user !== prevProps.user) {
+			this.props.getTasks(user._id);
+		}
+	}
+
+	// Add task
+	addTask(event) {
+		event.preventDefault();
+
+		const id = this.props.user._id,
+			title = event.target.title.value;
+
+		if (title) {
+			this.props.addTask(id, title);
+			event.target.title.value = "";
+		}
+	}
+
+	// Delete task
+	deleteTask(event) {
+		const id = event.target.value;
+		this.props.deleteTask(id);
 	}
 
 	render() {
@@ -28,10 +57,10 @@ class TasksList extends Component {
 		return (
 			<div className="content_block content_block__big">
 				<AddTask
-					addTask={this.props.addTask}
+					addTask={this.addTask.bind(this)}
 					buttonIsOpen={this.state.buttonIsOpen}
-					addButtonShow={this.addButtonToggle}
-					addButtonHide={this.addButtonToggle}
+					addButtonShow={this.addButtonToggle.bind(this)}
+					addButtonHide={this.addButtonToggle.bind(this)}
 				/>
 				<ul className="tasks-list">
 					<ReactCSSTransitionGroup
@@ -43,7 +72,7 @@ class TasksList extends Component {
 							<li key={id} className="tasks-list_item">
 								<input
 									type="radio"
-									onChange={this.props.deleteTask}
+									onChange={this.deleteTask.bind(this)}
 									className="checkbox-template"
 									value={id}
 								/>
@@ -58,24 +87,17 @@ class TasksList extends Component {
 }
 
 const mapStateToProps = state => {
-	return { task: state.task };
+	return {
+		task: state.task,
+		user: state.auth.user
+	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getTasks: () => dispatch(getTasks()),
-		addTask: event => {
-			event.preventDefault();
-			const title = event.target.title.value;
-			if (title) {
-				dispatch(addTask(title));
-				event.target.title.value = "";
-			}
-		},
-		deleteTask: event => {
-			const id = event.target.value;
-			dispatch(deleteTask(id));
-		}
+		getTasks: id => dispatch(getTasks(id)),
+		addTask: (id, title) => dispatch(addTask(id, title)),
+		deleteTask: id => dispatch(deleteTask(id))
 	};
 };
 

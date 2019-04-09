@@ -1,9 +1,7 @@
 import React, { Fragment, Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-
-// Include Redux
-import { Provider } from "react-redux";
-import store from "./store";
+import PrivateRoute from "./components/PrivateRoute";
+import { connect } from "react-redux";
 
 import "./scss/main.scss";
 /**
@@ -32,19 +30,41 @@ const NotFound = () => {
 class App extends Component {
 	render() {
 		return (
-			<Provider store={store}>
-				<Router>
-					<Switch>
-						<Route exact path="/" component={Home} />
-						<Route path="/signin" component={Login} />
-						<Route path="/signup" component={Register} />
-						<Route path="/all" component={All} />
-						<Route component={NotFound} />
-					</Switch>
-				</Router>
-			</Provider>
+			<Router>
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<PrivateRoute
+						token={this.props.token === ""}
+						path="/signin"
+						component={Login}
+						redirectPath="/all"
+					/>
+					<PrivateRoute
+						token={this.props.token === ""}
+						path="/signup"
+						component={Register}
+						redirectPath="/all"
+					/>
+					<PrivateRoute
+						token={this.props.token !== ""}
+						path="/all"
+						component={All}
+						redirectPath="/signin"
+					/>
+					<Route component={NotFound} />
+				</Switch>
+			</Router>
 		);
 	}
 }
 
-export default App;
+const mapStateToProps = state => {
+	return {
+		token: state.auth.token
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	null
+)(App);

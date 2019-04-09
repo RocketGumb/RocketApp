@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { register } from "../actions/authActions";
 import { clearErrors } from "../actions/errorAction";
 import FieldForm from "../components/FieldForm";
@@ -16,7 +16,7 @@ class Register extends Component {
 		agreeError: ""
 	};
 
-	componentDidUpdate = prevProps => {
+	componentDidUpdate(prevProps) {
 		const { error, isAuthenticated } = this.props;
 		// Check for email
 		if (error !== prevProps.error) {
@@ -32,25 +32,25 @@ class Register extends Component {
 				password: ""
 			});
 		}
-	};
+	}
 
 	// Wrapper for error message
-	errorMessage = message => {
+	errorMessage(message) {
 		if (message) {
 			return <p className="error-message">{message}</p>;
 		}
 		return;
-	};
+	}
 
 	// Update state on change fields
-	fieldChange = event => {
+	fieldChange(event) {
 		this.setState({
 			[event.target.id]: event.target.value
 		});
-	};
+	}
 
 	// Validate fields in form
-	checkForError = () => {
+	checkForError() {
 		let isError = false;
 		const errors = {};
 		const { name, email, password } = this.state;
@@ -89,9 +89,9 @@ class Register extends Component {
 		}
 
 		return isError;
-	};
+	}
 
-	registerUser = event => {
+	registerUser(event) {
 		event.preventDefault();
 
 		// Reset error message
@@ -118,7 +118,7 @@ class Register extends Component {
 			const { name, email, password } = this.state;
 			this.props.register({ name, email, password });
 		}
-	};
+	}
 
 	render() {
 		const { name, email, password } = this.state;
@@ -130,7 +130,6 @@ class Register extends Component {
 
 		return (
 			<section className="auth">
-				{this.props.isAuthenticated ? <Redirect to="/all" /> : ""}
 				<div className="auth_block">
 					<div className="auth_block__title">
 						<Link className="link-to-back" to="/">

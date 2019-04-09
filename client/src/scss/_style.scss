@@ -44,18 +44,15 @@
 
         & * {
           cursor: pointer;
+          font-weight: normal;
           color: $cMain;
+          padding: 5px 0;
+          display: block;
           @include transition;
 
           &:hover {
             color: $cMainHover;
           }
-        }
-
-        p {
-          padding: 5px 0;
-          color: $cMain;
-          font-weight: normal;
         }
       }
     }

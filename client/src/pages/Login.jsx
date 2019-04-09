@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { login } from "../actions/authActions";
 import { clearErrors } from "../actions/errorAction";
 import FieldForm from "../components/FieldForm";
@@ -16,7 +16,7 @@ class Login extends Component {
 		agreeError: ""
 	};
 
-	componentDidUpdate = prevProps => {
+	componentDidUpdate(prevProps) {
 		const { error, isAuthenticated } = this.props;
 		if (error !== prevProps.error) {
 			if (error.id === "LOGIN_FAIL") {
@@ -30,7 +30,7 @@ class Login extends Component {
 				password: ""
 			});
 		}
-	};
+	}
 
 	errorMessage = message => {
 		if (message) {
@@ -39,13 +39,13 @@ class Login extends Component {
 		return;
 	};
 
-	fieldChange = event => {
+	fieldChange(event) {
 		this.setState({
 			[event.target.id]: event.target.value
 		});
-	};
+	}
 
-	checkForError = () => {
+	checkForError() {
 		let isError = false;
 		const errors = {};
 		const { email, password } = this.state;
@@ -67,9 +67,9 @@ class Login extends Component {
 		}
 
 		return isError;
-	};
+	}
 
-	loginUser = event => {
+	loginUser(event) {
 		event.preventDefault();
 
 		// Reset error message
@@ -85,7 +85,7 @@ class Login extends Component {
 			const { email, password } = this.state;
 			this.props.login({ email, password });
 		}
-	};
+	}
 
 	render() {
 		const emailError = this.errorMessage(this.state.emailError),
@@ -95,7 +95,6 @@ class Login extends Component {
 
 		return (
 			<section className="auth">
-				{this.props.isAuthenticated ? <Redirect to="/all" /> : ""}
 				<div className="auth_block">
 					<div className="auth_block__title">
 						<Link className="link-to-back" to="/">

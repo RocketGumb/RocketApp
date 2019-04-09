@@ -16,7 +16,6 @@ import {
 export const loadUser = () => (dispatch, getState) => {
 	// Check loading
 	dispatch({ type: USER_LOADING });
-
 	axios
 		.get("/api/auth/user", tokenConfig(getState))
 		.then(res =>
@@ -47,12 +46,12 @@ export const register = ({ name, email, password }) => dispatch => {
 
 	axios
 		.post("/api/users", body, config)
-		.then(res =>
+		.then(res => {
 			dispatch({
 				type: REGISTER_SUCCESS,
 				payload: res.data
-			})
-		)
+			});
+		})
 		.catch(error => {
 			dispatch(
 				returnErrors(
@@ -81,12 +80,12 @@ export const login = ({ email, password }) => dispatch => {
 
 	axios
 		.post("/api/auth", body, config)
-		.then(res =>
+		.then(res => {
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: res.data
-			})
-		)
+			});
+		})
 		.catch(error => {
 			dispatch(
 				returnErrors(error.response.data, error.response.status, "LOGIN_FAIL")
