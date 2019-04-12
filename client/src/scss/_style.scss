@@ -321,18 +321,95 @@
 
       &_item {
         padding: 15px 15px;
-        cursor: pointer;
+        height: 55px;
+        position: relative;
         @include flex(flex-start, center);
 
         &:nth-child(even) {
           background: $cWhiteHover;
         }
 
-        p {
-          @include font-style(normal, 15px, 24px, $cTextTitle);
+        &__title {
+          @include font-style(normal, 16px, 24px, $cTextTitle);
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
+          padding-right: 90px;
+        }
+
+        &__more-info,
+        &__priority {
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 100%;
+          margin-right: 20px;
+          @include flex(center, center);
+        }
+
+        &__priority {
+          margin-right: 60px;
+
+          .priority-change {
+            position: absolute;
+            display: flex;
+            background: white;
+            right: calc(100% + 10px);
+            z-index: 20;
+            @include box-shadow-small;
+
+            input {
+              display: none;
+
+              &:checked {
+                &::before {
+                  @include pseudo;
+                  width: 100%;
+                  height: 100%;
+                  background: #333;
+                }
+              }
+            }
+
+            label {
+              width: 13px;
+              height: 13px;
+              border-radius: 50%;
+              margin: 5px;
+
+              &:first-child {
+                background-color: rgba($cText, .5);
+              }
+
+              &:nth-child(2) {
+                background-color: $cGreen;
+              }
+
+              &:nth-child(3) {
+                background-color: $cYellow;
+              }
+
+              &:nth-child(4) {
+                background-color: $cRed;
+              }
+            }
+          }
+        }
+
+        .priority0 {
+          color: rgba($cText, .5);
+        }
+
+        .priority1 {
+          color: $cGreen;
+        }
+
+        .priority2 {
+          color: $cYellow;
+        }
+
+        .priority3 {
+          color: $cRed;
         }
       }
     }
