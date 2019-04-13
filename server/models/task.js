@@ -13,6 +13,10 @@ const TaskSchema = new Schema({
 	users_id: {
 		type: Array,
 		required: true
+	},
+	completed: {
+		type: Boolean,
+		default: false
 	}
 }, {
 	timestamps: true // Time to create and update

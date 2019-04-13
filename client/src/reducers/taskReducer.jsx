@@ -18,11 +18,11 @@ export default function(state = initialState, action) {
 		case ADD_TASK:
 			return {
 				tasks: [
-					...state.tasks,
 					{
 						id: action.payload._id,
 						title: action.payload.title
-					}
+					},
+					...state.tasks
 				]
 			};
 		case DELETE_TASK:
