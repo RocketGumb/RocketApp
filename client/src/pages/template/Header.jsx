@@ -4,7 +4,7 @@ import userIcon from "../../images/user.png";
 import { Link } from "react-router-dom";
 import HeaderSettings from "../../components/HeaderSetting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 class Header extends Component {
@@ -36,7 +36,7 @@ class Header extends Component {
 							onClick={this.settingsShow.bind(this)}
 							className="header_user__setting"
 						>
-							<FontAwesomeIcon icon={faEllipsisV} />
+							<FontAwesomeIcon icon={faCog} />
 						</p>
 
 						<ReactCSSTransitionGroup

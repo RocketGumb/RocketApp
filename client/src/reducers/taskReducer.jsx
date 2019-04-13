@@ -7,22 +7,25 @@ const initialState = {
 export default function(state = initialState, action) {
 	switch (action.type) {
 		case GET_TASKS:
+			const tasks = action.payload.map(task => {
+				return {
+					id: task._id,
+					title: task.title,
+					priority: task.priority,
+					completed: task.completed
+				};
+			});
 			return {
-				tasks: action.payload.map(task => {
-					return {
-						id: task._id,
-						title: task.title
-					};
-				})
+				tasks: tasks.filter(task => task.completed === false)
 			};
 		case ADD_TASK:
 			return {
 				tasks: [
+					...state.tasks,
 					{
 						id: action.payload._id,
 						title: action.payload.title
-					},
-					...state.tasks
+					}
 				]
 			};
 		case DELETE_TASK:
