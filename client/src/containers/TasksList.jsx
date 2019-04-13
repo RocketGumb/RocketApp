@@ -101,4 +101,8 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
+<<<<<<< HEAD
 )(TasksList);
+=======
+)(TasksList);
+>>>>>>> 9ce8d6119ecc1d1039b70c92ce4a305b225c0818

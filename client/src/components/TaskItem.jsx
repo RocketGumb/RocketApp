@@ -38,4 +38,8 @@ function TaskItem({ payload, deleteTask }) {
   );
 }
 
+<<<<<<< HEAD
 export default TaskItem;
+=======
+export default TaskItem;
+>>>>>>> 9ce8d6119ecc1d1039b70c92ce4a305b225c0818
