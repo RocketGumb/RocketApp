@@ -12,8 +12,83 @@
     @include box-shadow-big;
   }
 
+  &_logo {
+    @include flex(flex-start, center);
+  }
+
   &_title {
-    @include font-style(normal, 28px)
+    @include font-style(normal, 28px);
+    margin-right: 30px;
+  }
+
+  #sidebarToggle {
+    @include transition;
+    cursor: pointer;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeCompact {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    &.normal {
+      animation: fade .4s;
+    }
+
+    &.compact {
+      animation: fadeCompact .4s;
+    }
+
+    span {
+      width: 20px;
+      height: 2px;
+      background: $cWhite;
+      display: block;
+      margin: 4px auto 0;
+
+      &:nth-child(2) {
+        position: relative;
+        width: 35px;
+
+        &::before,
+        &::after {
+          @include pseudo;
+          width: 6px;
+          height: 2px;
+          background: $cWhite;
+          transform: rotate(45deg);
+          top: 2px;
+          left: 0;
+          @include transition;
+        }
+
+        &::after {
+          top: -2px;
+          left: 0;
+          transform: rotate(145deg)
+        }
+      }
+    }
+
+    &.compact {
+      span:nth-child(2) {
+        transform: rotate(180deg);
+      }
+    }
   }
 
   &_user {
@@ -214,15 +289,14 @@
     z-index: 8;
     @include box-shadow-small;
 
-    &_navbar {
-      margin: {
-        top: 15px;
-        bottom: 15px;
-      }
+    &.compact {
+      max-width: 54px;
+      min-width: 54px;
     }
 
     &_link {
-      padding: 10px 15px;
+      padding: 15px 15px;
+      height: 54px;
       border-left: 5px solid transparent;
       @include transition;
       @include flex(flex-start, center);
@@ -240,13 +314,24 @@
         color: $cWhite;
       }
     }
+
+    &.compact .sidebar_link {
+      border-left: none;
+
+      svg {
+        font-size: 20px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+
   }
 
   // end Sidebar
 
   // start Content
   .content {
-    width: calc(100% - 250px);
+    width: 100%;
     position: relative;
     padding-bottom: 55px;
 
@@ -340,56 +425,72 @@
         &__more-info,
         &__priority {
           position: absolute;
-          right: 0;
+          right: 10px;
           top: 0;
           height: 100%;
-          margin-right: 20px;
+          width: 40px;
           @include flex(center, center);
+          color: rgba($cText, .5);
         }
 
         &__priority {
-          margin-right: 60px;
+          right: 50px;
+          cursor: pointer;
 
           .priority-change {
             position: absolute;
             display: flex;
             background: white;
-            right: calc(100% + 10px);
+            right: 100%;
             z-index: 20;
             @include box-shadow-small;
 
-            input {
-              display: none;
+            label {
+              width: 21px;
+              height: 21px;
 
-              &:checked {
+              input {
+                transform: none;
+                user-select: none;
+                cursor: pointer;
+                position: relative;
+
                 &::before {
                   @include pseudo;
-                  width: 100%;
-                  height: 100%;
-                  background: #333;
+                  width: 21px;
+                  height: 21px;
+                  transform: translate(0px, -4px);
+                  background: $cWhite;
+                  @include transition;
+                }
+
+                &:checked::before {
+                  background: $cInputHover;
+                }
+
+                &::after {
+                  @include pseudo;
+                  top: 1px;
+                  left: 4px;
+                  width: 13px;
+                  height: 13px;
+                  border-radius: 50%;
                 }
               }
-            }
 
-            label {
-              width: 13px;
-              height: 13px;
-              border-radius: 50%;
-              margin: 5px;
-
-              &:first-child {
+              &:first-child input::after {
                 background-color: rgba($cText, .5);
               }
 
-              &:nth-child(2) {
+              &:nth-child(2) input::after {
                 background-color: $cGreen;
               }
 
-              &:nth-child(3) {
+              &:nth-child(3) input::after {
                 background-color: $cYellow;
               }
 
-              &:nth-child(4) {
+              &:nth-child(4) input::after {
                 background-color: $cRed;
               }
             }

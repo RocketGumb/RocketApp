@@ -6,6 +6,7 @@ import HeaderSettings from "../../components/HeaderSetting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { sidebarToggle } from "../../actions/helperAction";
 
 class Header extends Component {
 	state = {
@@ -18,17 +19,32 @@ class Header extends Component {
 		});
 	};
 
+	sidebarToggle = () => {
+		this.props.sidebarToggle(!this.props.sidebarState);
+	};
+
 	render() {
 		const { user } = this.props.auth;
 		return (
 			<header className="header">
 				<div className="header_container">
-					<h1 className="white header_title">
-						<Link className="h3" to="/">
-							Rocket
-							<strong>List</strong>
-						</Link>
-					</h1>
+					<div className="header_logo">
+						<h1 className="white header_title">
+							<Link className="h3" to="/">
+								Rocket
+								<strong>List</strong>
+							</Link>
+						</h1>
+						<p
+							id="sidebarToggle"
+							className={this.props.sidebarState ? "normal" : "compact"}
+							onClick={this.sidebarToggle}
+						>
+							<span />
+							<span />
+							<span />
+						</p>
+					</div>
 					<div className="header_user">
 						<img src={userIcon} alt="" />
 						{user ? <p>{user.name}</p> : ""}
@@ -54,11 +70,20 @@ class Header extends Component {
 }
 const mapStateToProps = state => {
 	return {
-		auth: state.auth
+		auth: state.auth,
+		sidebarState: state.helper.sidebarState
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		sidebarToggle: sidebarState => {
+			dispatch(sidebarToggle(sidebarState));
+		}
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	null
+	mapDispatchToProps
 )(Header);

@@ -1,11 +1,15 @@
-import { GET_TASKS, ADD_TASK, DELETE_TASK } from "../actions/types";
+import {
+	GET_TASKS,
+	UPDATE_TASK,
+	ADD_TASK,
+	DELETE_TASK
+} from "../actions/types";
 
 const initialState = {
-  tasks: []
+	tasks: []
 };
 
 export default function(state = initialState, action) {
-<<<<<<< HEAD
 	switch (action.type) {
 		case GET_TASKS:
 			const tasks = action.payload.map(task => {
@@ -19,13 +23,30 @@ export default function(state = initialState, action) {
 			return {
 				tasks: tasks.filter(task => task.completed === false)
 			};
+		case UPDATE_TASK:
+			const data = action.payload.data;
+			return {
+				tasks: state.tasks.map(task => {
+					if (data._id === task.id) {
+						task = {
+							...task,
+							title: data.title,
+							priority: data.priority,
+							completed: data.completed
+						};
+					}
+					return task;
+				})
+			};
 		case ADD_TASK:
 			return {
 				tasks: [
 					...state.tasks,
 					{
 						id: action.payload._id,
-						title: action.payload.title
+						title: action.payload.title,
+						priority: 0,
+						completed: false
 					}
 				]
 			};
@@ -36,36 +57,4 @@ export default function(state = initialState, action) {
 		default:
 			return state;
 	}
-=======
-  switch (action.type) {
-    case GET_TASKS:
-      const tasks = action.payload.map(task => {
-        return {
-          id: task._id,
-          title: task.title,
-          priority: task.priority,
-          completed: task.completed
-        };
-      });
-      return {
-        tasks: tasks.filter(task => task.completed === false)
-      };
-    case ADD_TASK:
-      return {
-        tasks: [
-          ...state.tasks,
-          {
-            id: action.payload._id,
-            title: action.payload.title
-          }
-        ]
-      };
-    case DELETE_TASK:
-      return {
-        tasks: state.tasks.filter(task => task.id !== action.payload.id)
-      };
-    default:
-      return state;
-  }
->>>>>>> 9ce8d6119ecc1d1039b70c92ce4a305b225c0818
 }

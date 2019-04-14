@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 // Wrapper for menu items
 import SidebarLink from "../components/SidebarLink";
 
@@ -12,7 +13,7 @@ import {
 // Sidebar
 class Sidebar extends Component {
 	render() {
-		return (
+		return this.props.sidebarState ? (
 			<aside className="sidebar">
 				<nav className="sidebar_navbar">
 					<menu>
@@ -22,8 +23,26 @@ class Sidebar extends Component {
 					</menu>
 				</nav>
 			</aside>
+		) : (
+			<aside className="sidebar compact">
+				<nav className="sidebar_navbar">
+					<menu>
+						<SidebarLink exact icon={faHome} title="" to="/all" />
+						<SidebarLink icon={faCheckSquare} title="" to="/all/tasks" />
+						<SidebarLink icon={faChartBar} title="" to="/all/charts" />
+					</menu>
+				</nav>
+			</aside>
 		);
 	}
 }
+const mapStateToProps = state => {
+	return {
+		sidebarState: state.helper.sidebarState
+	};
+};
 
-export default Sidebar;
+export default connect(
+	mapStateToProps,
+	null
+)(Sidebar);

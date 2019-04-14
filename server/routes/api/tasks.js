@@ -25,6 +25,32 @@ router.get("/:id", auth, (req, res) => {
 });
 
 /**
+ * @route  PUT api/tasks/:id
+ * @desc   Update A Task
+ * @access Private
+ */
+router.put('/:id', auth, (req, res) => {
+	Task.findByIdAndUpdate({
+			_id: req.params.id
+		}, req.body)
+		.then(() => {
+			Task.findOne({
+					_id: req.params.id
+				})
+				.then(task => {
+					res.json({
+						success: true,
+						data: task
+					});
+				});
+		})
+		.catch(error => res.status(404).json({
+			success: false,
+			error: error.message
+		}))
+});
+
+/**
  * @route  POST api/tasks
  * @desc   Create At Task
  * @access Private

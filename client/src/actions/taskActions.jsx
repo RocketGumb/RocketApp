@@ -1,4 +1,4 @@
-import { GET_TASKS, ADD_TASK, DELETE_TASK } from "./types";
+import { GET_TASKS, UPDATE_TASK, ADD_TASK, DELETE_TASK } from "./types";
 import axios from "axios";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorAction";
@@ -12,6 +12,23 @@ export const getTasks = id => (dispatch, getState) => {
 				payload: res.data
 			})
 		)
+		.catch(error =>
+			dispatch(returnErrors(error.responce.data, error.responce.status))
+		);
+};
+
+export const updateTask = (id, data) => (dispatch, getState) => {
+	console.log(data);
+	axios
+		.put(`/api/tasks/${id}`, data, tokenConfig(getState))
+		.then(res => {
+			if (res.data.success) {
+				dispatch({
+					type: UPDATE_TASK,
+					payload: res.data
+				});
+			}
+		})
 		.catch(error =>
 			dispatch(returnErrors(error.responce.data, error.responce.status))
 		);

@@ -1,4 +1,5 @@
 export const GET_TASKS = "GET_TASKS";
+export const UPDATE_TASK = "UPDATE_TASK";
 export const ADD_TASK = "ADD_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 export const GET_ERRORS = "GET_ERRORS";
@@ -11,3 +12,4 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
+export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
