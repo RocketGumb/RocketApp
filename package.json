@@ -8,11 +8,10 @@
   "license": "MIT",
   "scripts": {
     "client-install": "npm run --prefix client",
-    "start": "npm run start --prefix server",
     "server": "npm run server --prefix server",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "npm run heroku-postbuild --prefix server && install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
     "concurrently": "^4.1.0"
