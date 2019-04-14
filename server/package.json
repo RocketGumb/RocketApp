@@ -7,7 +7,7 @@
   "author": "Dmitrii <golubev.rocket@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
+    "start": "NPM_CONFIG_PRODUCTION=false node server.js",
     "server": "nodemon server.js"
   },
   "dependencies": {
