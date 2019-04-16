@@ -9,6 +9,9 @@ import {
 	REGISTER_FAIL
 } from "../actions/types";
 
+console.log(localStorage.getItem("token"));
+console.log(typeof localStorage.getItem("token"));
+
 const inititalState = {
 	token: localStorage.getItem("token"),
 	isAuthenticated: false,
@@ -39,7 +42,7 @@ export default function(state = inititalState, action) {
 				isLoading: false
 			};
 		case LOGOUT_SUCCESS:
-			localStorage.setItem("token", null);
+			localStorage.setItem("token", "");
 			return {
 				...state,
 				token: null,

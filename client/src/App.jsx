@@ -1,5 +1,5 @@
-import React, { Fragment, Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import { connect } from "react-redux";
 
@@ -11,17 +11,18 @@ import "./scss/main.scss";
 import All from "./pages/All";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 
-const Home = () => {
-	return (
-		<Fragment>
-			<h1>Home</h1>
-			<Link to="/all">Конетнт</Link>
-			<Link to="/signin">Войти</Link>
-			<Link to="/signup">Регистрация</Link>
-		</Fragment>
-	);
-};
+// const Home = () => {
+// 	return (
+// 		<Fragment>
+// 			<h1>Home</h1>
+// 			<Link to="/all">Конетнт</Link>
+// 			<Link to="/signin">Войти</Link>
+// 			<Link to="/signup">Регистрация</Link>
+// 		</Fragment>
+// 	);
+// };
 
 const NotFound = () => {
 	return <h1>NotFound</h1>;
@@ -32,21 +33,28 @@ class App extends Component {
 		return (
 			<Router>
 				<Switch>
-					<Route exact path="/" component={Home} />
+					{/* <Route exact path="/" component={Home} /> */}
 					<PrivateRoute
-						token={this.props.token === null}
+						exact
+						token={!this.props.token}
+						path="/"
+						component={Home}
+						redirectPath="/all"
+					/>
+					<PrivateRoute
+						token={!this.props.token}
 						path="/signin"
 						component={Login}
 						redirectPath="/all"
 					/>
 					<PrivateRoute
-						token={this.props.token === null}
+						token={!this.props.token}
 						path="/signup"
 						component={Register}
 						redirectPath="/all"
 					/>
 					<PrivateRoute
-						token={this.props.token !== null}
+						token={this.props.token !== ""}
 						path="/all"
 						component={All}
 						redirectPath="/signin"

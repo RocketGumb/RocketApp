@@ -1,10 +1,9 @@
 // start Header
 .header {
   background-color: $cBlack;
-  height: 72px;
 
   &_container {
-    padding: 15px 30px;
+    padding: 10px 30px;
     height: 100%;
     position: relative;
     z-index: 12;
@@ -99,7 +98,7 @@
 
     img {
       width: auto;
-      height: 100%;
+      height: 45px;
       margin-right: 15px;
     }
 
@@ -110,7 +109,7 @@
 
       &__modal {
         position: absolute;
-        top: calc(100% + 15px);
+        top: calc(100% + 10px);
         right: -30px;
         min-width: calc(100% + 30px);
         background: $cWhite;
@@ -136,6 +135,121 @@
 }
 
 // end Header
+
+
+// start Home
+.home {
+  &_header {
+    padding: 15px 60px;
+    @include flex(space-between, center);
+    position: relative;
+
+    &::before {
+      @include pseudo;
+      bottom: 0;
+      left: 30px;
+      width: calc(100% - 60px);
+      height: 1px;
+      background: rgba($cWhite, .2);
+    }
+
+    &__title {
+      font-size: 24px;
+      color: $cWhite;
+      font-weight: 300;
+    }
+
+    &__auth {
+      &__register {
+        color: $cWhite;
+        font-weight: 300;
+        margin-right: 30px;
+      }
+
+      &__login {
+        background: linear-gradient(180deg, $cMain, $cMainHover);
+        padding: 10px 50px;
+        border-radius: 50px;
+        color: $cWhite;
+        box-shadow: 0 5px 15px rgba($cMain, .5);
+        @include transition;
+
+        &:hover {
+          box-shadow: 0 5px 25px rgba($cMain, .7);
+        }
+      }
+    }
+  }
+
+  &_offer {
+    color: $cWhite;
+    padding-left: 60px;
+    height: calc(100vh - 66px);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+      // font-weight: normal;
+      font-size: 48px;
+      line-height: 40px;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    &__button {
+      background: linear-gradient(180deg, $cMain, $cMainHover);
+      padding: 15px 50px;
+      border-radius: 50px;
+      color: $cWhite;
+      max-width: 300px;
+      margin-top: 30px;
+      text-align: center;
+      font-size: 18px;
+      box-shadow: 0 5px 15px rgba($cMain, .5);
+      @include transition;
+
+      &:hover {
+        box-shadow: 0 5px 25px rgba($cMain, .7);
+      }
+    }
+  }
+}
+
+.home-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  // background-image: url(../images/bg.jpg);
+  background-size: cover;
+  // @include flex(center, center);
+  z-index: -1;
+
+  &_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $cMainDark;
+    opacity: .65;
+  }
+
+  &_video {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+// end Home
 
 
 //start Auth
@@ -278,7 +392,7 @@
 // start Dashboard
 .dashboard {
   z-index: 8;
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 65px);
   @include flex(flex-start, stretch);
 
   // start Sidebar
@@ -287,6 +401,7 @@
     min-width: 250px;
     background-color: $cWhite;
     z-index: 8;
+    @include transition;
     @include box-shadow-small;
 
     &.compact {
