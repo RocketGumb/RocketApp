@@ -7,11 +7,8 @@ import { loadUser } from "../actions/authActions";
 import Header from "./template/Header";
 import Sidebar from "../containers/Sidebar";
 import Tasks from "./Tasks";
+import Charts from "./Charts";
 import Footer from "./template/Footer";
-
-const Charts = () => {
-	return <h1>Charts</h1>;
-};
 
 class All extends Component {
 	componentDidMount() {

@@ -154,9 +154,18 @@
     }
 
     &__title {
-      font-size: 24px;
-      color: $cWhite;
-      font-weight: 300;
+      @include flex(flex-start, center);
+
+      p {
+        font-size: 24px;
+        color: $cWhite;
+        font-weight: 300;
+        line-height: 40px;
+      }
+
+      img {
+        margin-right: 15px;
+      }
     }
 
     &__auth {
@@ -188,6 +197,10 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    background-image: url(../images/logo.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 120px) center;
+    background-size: 400px 400px;
 
     h1 {
       // font-weight: normal;

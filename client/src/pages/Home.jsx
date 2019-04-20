@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from "react";
 import { Link } from "react-router-dom";
 import bgVideo from "../images/space.mp4";
+import logo from "../images/logo.svg";
 
 class Home extends Component {
 	render() {
@@ -14,7 +15,10 @@ class Home extends Component {
 				</div>
 				<header className="home_header">
 					<div className="home_header__title">
-						Rocket<strong>List</strong>
+						<img height="40" src={logo} alt="Логотип" />
+						<p>
+							Rocket<strong>List</strong>
+						</p>
 					</div>
 					<div className="home_header__auth">
 						<Link className="home_header__auth__register" to="/signup">
