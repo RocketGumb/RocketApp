@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import userIcon from "../../images/user.png";
-import { Link } from "react-router-dom";
 import HeaderSettings from "../../components/HeaderSetting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { sidebarToggle } from "../../actions/helperAction";
+// import logo from "../../images/logo.svg";
 
 class Header extends Component {
 	state = {
@@ -29,11 +29,10 @@ class Header extends Component {
 			<header className="header">
 				<div className="header_container">
 					<div className="header_logo">
-						<h1 className="white header_title">
-							<Link className="h3" to="/">
-								Rocket
-								<strong>List</strong>
-							</Link>
+						<h1 className="white header_title h3">
+							{/* <img height="40" src={logo} alt="Логотип" /> */}
+							Rocket
+							<strong>List</strong>
 						</h1>
 						<p
 							id="sidebarToggle"

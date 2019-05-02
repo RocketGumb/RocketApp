@@ -5,6 +5,7 @@ const path = require('path');
 
 // Routes
 const tasks = require('./routes/api/tasks');
+const projects = require('./routes/api/projects');
 const users = require('./routes/api/users');
 const auth = require('./routes/api/auth');
 
@@ -27,6 +28,7 @@ mongoose
 
 // Use routes
 app.use('/api/tasks', tasks);
+app.use('/api/projects', projects);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 

@@ -4,25 +4,11 @@ import PrivateRoute from "./components/PrivateRoute";
 import { connect } from "react-redux";
 
 import "./scss/main.scss";
-/**
- * @TODO Include fonts FontAwesome
- */
 
 import All from "./pages/All";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-
-// const Home = () => {
-// 	return (
-// 		<Fragment>
-// 			<h1>Home</h1>
-// 			<Link to="/all">Конетнт</Link>
-// 			<Link to="/signin">Войти</Link>
-// 			<Link to="/signup">Регистрация</Link>
-// 		</Fragment>
-// 	);
-// };
 
 const NotFound = () => {
 	return <h1>NotFound</h1>;

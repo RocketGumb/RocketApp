@@ -20,9 +20,7 @@ export default function(state = initialState, action) {
 					completed: task.completed
 				};
 			});
-			return {
-				tasks: tasks.filter(task => task.completed === false)
-			};
+			return { tasks: [...tasks] };
 		case UPDATE_TASK:
 			const data = action.payload.data;
 			return {
@@ -32,7 +30,8 @@ export default function(state = initialState, action) {
 							...task,
 							title: data.title,
 							priority: data.priority,
-							completed: data.completed
+							completed: data.completed,
+							project: data.project_id
 						};
 					}
 					return task;
@@ -46,7 +45,8 @@ export default function(state = initialState, action) {
 						id: action.payload._id,
 						title: action.payload.title,
 						priority: 0,
-						completed: false
+						completed: false,
+						project: action.payload.project
 					}
 				]
 			};

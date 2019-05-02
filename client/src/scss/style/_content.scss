@@ -1,0 +1,241 @@
+// start Dashboard
+.dashboard {
+  overflow: hidden;
+
+  // start Content
+  .content {
+    width: calc(100% - 250px);
+    position: relative;
+    padding-bottom: 55px;
+    @include transition;
+
+    &.compact {
+      width: calc(100% - 50px);
+    }
+
+    &_main {
+      padding: 20px 30px 50px;
+      position: relative;
+      flex-wrap: wrap;
+      @include flex(space-between);
+    }
+
+    &_block {
+      background: $cWhite;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+      margin-top: 30px;
+
+      &__big {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      &__medium {
+        width: calc(50% - 15px);
+      }
+
+      &__small {
+        width: calc(25% - 20px);
+      }
+
+
+      &_input {
+        form {
+          @include flex(flex-start, stretch);
+
+          input[type=text] {
+            width: 100%;
+            height: 100%;
+            border: none;
+            @include font-style(500, 16px, 1, $cTextTitle);
+            border: 2px solid $cMain;
+
+            padding: {
+              top: 15px;
+              bottom: 15px;
+              left: 18px;
+              right: 15px;
+
+            }
+
+            @include transition;
+
+            &:focus {
+              color: $cTextTitle;
+            }
+          }
+
+          .btn {
+            height: 100%;
+            width: 250px;
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+      }
+
+      &_title {
+        padding: 20px;
+        position: relative;
+        @include box-shadow-small;
+
+        &.h2 {
+          @include font-style(bold, 18px, 1, $cTextTitle);
+        }
+
+        &_setting {
+          position: absolute;
+          cursor: pointer;
+          right: 10px;
+          top: 0;
+          height: 100%;
+          width: 40px;
+          @include flex(center, center);
+
+          .prioritySort {
+            position: absolute;
+            background: $cWhite;
+            font-weight: normal;
+            font-size: 16px;
+            right: 100%;
+            top: 15px;
+            padding: 15px 20px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+            z-index: 50;
+
+            p {
+              width: 100%;
+              white-space: nowrap;
+              margin-top: 10px;
+              cursor: pointer;
+
+              &:first-child {
+                margin-top: 0;
+              }
+            }
+          }
+
+        }
+      }
+    }
+
+    .tasks-list {
+      display: flex;
+      flex-direction: column;
+      padding-top: 1px;
+
+      &_item {
+        padding: 12px 15px;
+        // height: 55px;
+        position: relative;
+        @include flex(flex-start, center);
+
+        &_complete {
+          text-decoration: line-through;
+          opacity: .8;
+        }
+
+        &:nth-child(even) {
+          background: $cWhiteHover;
+        }
+
+        &__title {
+          @include font-style(normal, 16px, 24px, $cTextTitle);
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          padding-right: 90px;
+        }
+
+        &__more-info,
+        &__priority {
+          position: absolute;
+          right: 10px;
+          top: 0;
+          height: 100%;
+          width: 40px;
+          @include flex(center, center);
+          color: rgba($cText, .5);
+        }
+
+        &__priority {
+          right: 10px;
+          cursor: pointer;
+
+          .priority-change {
+            position: absolute;
+            display: flex;
+            background: white;
+            right: 100%;
+            z-index: 20;
+
+            @include box-shadow-small;
+
+            label {
+              width: 21px;
+              height: 21px;
+
+              input {
+                transform: none;
+                user-select: none;
+                cursor: pointer;
+                position: relative;
+
+                &::before {
+                  @include pseudo;
+                  width: 21px;
+                  height: 21px;
+                  transform: translate(0px, -4px);
+                  background: $cWhite;
+                  @include transition;
+                }
+
+                &:checked::before {
+                  background: $cInputHover;
+                }
+
+                &::after {
+                  @include pseudo;
+                  top: 1px;
+                  left: 4px;
+                  width: 13px;
+                  height: 13px;
+                  border-radius: 50%;
+                }
+              }
+
+              &:first-child input::after {
+                background-color: $cGreen;
+              }
+
+              &:nth-child(2) input::after {
+                background-color: $cYellow;
+              }
+
+              &:nth-child(3) input::after {
+                background-color: $cRed;
+              }
+            }
+          }
+        }
+
+        .priority1 {
+          color: $cGreen;
+        }
+
+        .priority2 {
+          color: $cYellow;
+        }
+
+        .priority3 {
+          color: $cRed;
+        }
+
+      }
+    }
+  }
+
+  // end Content
+}
+
+// end Dashboard

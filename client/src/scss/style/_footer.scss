@@ -1,0 +1,21 @@
+// start Footer
+.footer {
+  background-color: $cBlack;
+  z-index: 12;
+  color: $cWhite;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  p {
+    font-weight: 300;
+  }
+
+  &_container {
+    padding: 15px 30px;
+    position: relative;
+  }
+}
+
+// end Footer

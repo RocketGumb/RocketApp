@@ -1,0 +1,135 @@
+//start Auth
+.auth {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  &_back {
+    margin-top: 35px;
+    @include font-style(300, 14px, 1, $cTextSmall);
+
+    a {
+      padding-left: 5px;
+      font-weight: normal;
+      color: $cMain;
+      @include transition;
+
+      &:hover {
+        color: $cMainHover;
+      }
+    }
+  }
+
+  &::before {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    filter: blur(10px);
+    @include pseudo;
+    @include background('../images/auth-bg2.jpg');
+    // background-color: $cMain;
+  }
+
+  &_block {
+    position: absolute;
+    width: 80%;
+    height: 76%;
+    top: 13%;
+    left: 10%;
+    @include flex(center, center);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+
+    &__title {
+      width: 50%;
+      height: 100%;
+      padding: 30px;
+      background-color: rgba($cMain, .85);
+      flex-direction: column;
+      color: $cWhite;
+      position: relative;
+      @include flex(center, flex-start);
+
+      .link-to-back {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        @include font-style(300, 14px, 1, $cWhite);
+        @include transition;
+
+        &:hover {
+          color: $cWhiteHover;
+        }
+      }
+    }
+
+    &__form {
+      width: 50%;
+      height: 100%;
+      padding: 40px;
+      background-color: $cWhite;
+      flex-direction: column;
+      @include flex(center, flex-start);
+
+      &>* {
+        width: 100%;
+      }
+
+      .label-row {
+        margin-top: 40px;
+      }
+
+      &_item {
+        margin-top: 40px;
+        position: relative;
+
+        & .error-message {
+          position: absolute;
+        }
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        input {
+          width: 100%;
+          border: none;
+          border-bottom: 1px solid rgba($cTextSmall, .3);
+          padding: 10px 0;
+          @include transition;
+
+          &:focus,
+          &:valid {
+            border-color: $cMain;
+
+            &~label {
+              font-size: 14px;
+              color: $cMain;
+              top: -10px;
+            }
+          }
+        }
+
+        label {
+          position: absolute;
+          top: 14px;
+          left: 0;
+          cursor: text;
+          font-weight: 300;
+          @include transition(.2s);
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 50px;
+        border-radius: 6px;
+      }
+    }
+  }
+}
+
+// end Auth

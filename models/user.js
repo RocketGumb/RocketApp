@@ -14,12 +14,9 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 6
   }
-}, {
-  timestamps: true // Time to create and update
-}, {
-  versionKey: false // Version off
 });
 
 module.exports = User = mongoose.model('User', UserSchema);

@@ -1,5 +1,5 @@
 import {
-	USER_LOADING,
+	// USER_LOADING,
 	USER_LOADED,
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
@@ -9,27 +9,22 @@ import {
 	REGISTER_FAIL
 } from "../actions/types";
 
-console.log(localStorage.getItem("token"));
-console.log(typeof localStorage.getItem("token"));
-
 const inititalState = {
 	token: localStorage.getItem("token"),
-	isAuthenticated: false,
-	isLoading: false
+	isAuthenticated: false
 };
 
 export default function(state = inititalState, action) {
 	switch (action.type) {
-		case USER_LOADING:
-			return {
-				...state,
-				isLoading: true
-			};
+		// case USER_LOADING:
+		// 	return {
+		// 		...state,
+		// 		isLoading: true
+		// 	};
 		case USER_LOADED:
 			return {
 				...state,
 				isAuthenticated: true,
-				isLoading: false,
 				user: action.payload
 			};
 		case LOGIN_SUCCESS:
@@ -38,8 +33,7 @@ export default function(state = inititalState, action) {
 			return {
 				...state,
 				...action.payload,
-				isAuthenticated: true,
-				isLoading: false
+				isAuthenticated: true
 			};
 		case LOGOUT_SUCCESS:
 			localStorage.setItem("token", "");
@@ -47,8 +41,7 @@ export default function(state = inititalState, action) {
 				...state,
 				token: null,
 				user: null,
-				isAuthenticated: false,
-				isLoading: false
+				isAuthenticated: false
 			};
 		case AUTH_ERROR:
 		case LOGIN_FAIL:
@@ -57,8 +50,7 @@ export default function(state = inititalState, action) {
 				...state,
 				token: null,
 				user: null,
-				isAuthenticated: false,
-				isLoading: false
+				isAuthenticated: false
 			};
 		default:
 			return state;

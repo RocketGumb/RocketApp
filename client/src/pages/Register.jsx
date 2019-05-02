@@ -171,6 +171,7 @@ class Register extends Component {
 									type="checkbox"
 									className="checkbox-template"
 									name="agree"
+									defaultChecked
 								/>
 								<p>
 									Соглашаюсь с Условиями использования и Политикой

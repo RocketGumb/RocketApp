@@ -1,28 +1,31 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFlag, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { Link } from "react-router-dom";
 
 // Wrapper for menu items on component Sidebar
 function TaskItem({
 	payload,
-	deleteTask,
+	completeTask,
 	priorityChange,
 	priorityIsOpen,
 	togglePriorityWindow
 }) {
 	const { id, title, priority } = payload;
 	const classPriotity = `priority${priority}`;
-	const priorityValue = [0, 1, 2, 3];
+	const priorityValue = [1, 2, 3];
 	return (
 		<li className="tasks-list_item">
 			<input
-				type="radio"
-				onChange={deleteTask}
+				type="checkbox"
+				onChange={completeTask}
 				className="checkbox-template"
 				value={id}
 			/>
-			<p className="tasks-list_item__title">{title}</p>
+			<Link to={`/all/tasks/${id}`}>
+				<p className="tasks-list_item__title">{title}</p>
+			</Link>
 			<p
 				className="tasks-list_item__priority"
 				onClick={togglePriorityWindow.bind(this, id)}
@@ -48,9 +51,6 @@ function TaskItem({
 							</label>
 						))}
 				</ReactCSSTransitionGroup>
-			</p>
-			<p className="tasks-list_item__more-info">
-				<FontAwesomeIcon icon={faEllipsisH} />
 			</p>
 		</li>
 	);

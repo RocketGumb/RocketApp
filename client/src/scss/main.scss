@@ -153,10 +153,35 @@ menu {
 }
 
 .pagetitle {
-  padding: 20px 30px;
+  padding: 15px 30px 15px;
   background: $cWhite;
   @include font-style(bold, 24px, 1, $cTextTitle);
-  @include box-shadow-big;
+  @include box-shadow-small;
+  position: relative;
+}
+
+.subtitle {
+  margin-top: 5px;
+  margin-bottom: -5px;
+  border: none;
+  resize: none;
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  overflow: hidden;
+  @include font-style(normal, 14px, 1, $cTextSmall);
+}
+
+.breadcrumbs {
+  padding: 15px 30px;
+  background: $cWhite;
+  @include font-style(normal, 16px, 1, $cText);
+  // @include box-shadow-small;
+  z-index: -1;
+
+  .link {
+    color: $cMain;
+  }
 }
 
 .white,
@@ -196,6 +221,80 @@ menu {
   }
 }
 
+#preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, $cMain 0%, $cMainHover 100%);
+  z-index: 99999;
+  @include flex(center, center);
+}
 
+#loader {
+  display: block;
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #fff;
+  animation: spin 1s linear infinite;
+}
+
+#loader:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #fff;
+  animation: spin 2s linear infinite;
+}
+
+#loader:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #fff;
+  animation: spin .5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@import 'style/header';
+@import 'style/home';
+@import 'style/auth';
+@import 'style/sidebar';
+@import 'style/content';
+@import 'style/project';
+@import 'style/footer';
 @import 'style';
 @import 'media';

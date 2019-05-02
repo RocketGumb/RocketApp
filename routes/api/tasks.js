@@ -12,10 +12,8 @@ const Task = require("../../models/task");
  */
 router.get("/:id", auth, (req, res) => {
 	Task.find({
-			'users_id': req.params.id
-		})
-		.sort({
-			createdAt: -1
+			'users_id': req.params.id,
+			'project_id': null
 		})
 		.then(tasks => res.json(tasks))
 		.catch(error => res.status(404).json({
@@ -60,7 +58,8 @@ router.post("/", auth, (req, res) => {
 		users_id: [
 			req.body.id
 		],
-		title: req.body.title
+		title: req.body.title,
+		project_id: req.body.project
 	});
 
 	newTask

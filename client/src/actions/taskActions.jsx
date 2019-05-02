@@ -1,4 +1,11 @@
-import { GET_TASKS, UPDATE_TASK, ADD_TASK, DELETE_TASK } from "./types";
+import {
+	GET_TASKS,
+	UPDATE_TASK,
+	ADD_TASK,
+	ADD_TASK_TO_PROJECT,
+	UPDATE_TASK_TO_PROJECT,
+	DELETE_TASK
+} from "./types";
 import axios from "axios";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorAction";
@@ -18,13 +25,16 @@ export const getTasks = id => (dispatch, getState) => {
 };
 
 export const updateTask = (id, data) => (dispatch, getState) => {
-	console.log(data);
 	axios
 		.put(`/api/tasks/${id}`, data, tokenConfig(getState))
 		.then(res => {
 			if (res.data.success) {
 				dispatch({
 					type: UPDATE_TASK,
+					payload: res.data
+				});
+				dispatch({
+					type: UPDATE_TASK_TO_PROJECT,
 					payload: res.data
 				});
 			}
@@ -34,15 +44,21 @@ export const updateTask = (id, data) => (dispatch, getState) => {
 		);
 };
 
-export const addTask = (id, title) => (dispatch, getState) => {
+export const addTask = (id, title, project) => (dispatch, getState) => {
 	axios
-		.post("/api/tasks", { id, title }, tokenConfig(getState))
-		.then(res =>
+		.post("/api/tasks", { id, title, project }, tokenConfig(getState))
+		.then(res => {
 			dispatch({
 				type: ADD_TASK,
 				payload: res.data
-			})
-		)
+			});
+			if (project) {
+				dispatch({
+					type: ADD_TASK_TO_PROJECT,
+					payload: res.data
+				});
+			}
+		})
 		.catch(error =>
 			dispatch(returnErrors(error.responce.data, error.responce.status))
 		);

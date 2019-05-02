@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://gumba:djkjulf35@rocketlist-jptdp.mongodb.net/test?retryWrites=true",
-  "jwtSecret": "RocketList_jwtSecret"
+	"mongoURI": "mongodb+srv://gumba:djkjulf35@rocketlist-jptdp.mongodb.net/test?retryWrites=true",
+	"jwtSecret": "RocketList_jwtSecret"
 }

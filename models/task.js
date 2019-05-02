@@ -14,6 +14,9 @@ const TaskSchema = new Schema({
 		type: Array,
 		required: true
 	},
+	project_id: {
+		type: String
+	},
 	priority: {
 		type: Number,
 		default: 0
@@ -24,8 +27,6 @@ const TaskSchema = new Schema({
 	}
 }, {
 	timestamps: true // Time to create and update
-}, {
-	versionKey: false // Version off
 });
 
 module.exports = Task = mongoose.model('Task', TaskSchema);

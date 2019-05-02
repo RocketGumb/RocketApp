@@ -1,0 +1,99 @@
+// start Home
+.home {
+  background-image: url(../images/home-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+
+  &_header {
+    padding: 15px 60px;
+    height: 70px;
+    @include flex(space-between, center);
+    position: relative;
+
+    &::before {
+      @include pseudo;
+      bottom: 0;
+      left: 30px;
+      width: calc(100% - 60px);
+      height: 1px;
+      background: rgba($cWhite, .2);
+    }
+
+    &__title {
+      @include flex(flex-start, center);
+
+      p {
+        font-size: 24px;
+        color: $cWhite;
+        font-weight: 300;
+        line-height: 40px;
+      }
+
+      img {
+        margin-right: 15px;
+      }
+    }
+
+    &__auth {
+      &__register {
+        color: $cWhite;
+        font-weight: 300;
+        margin-right: 30px;
+      }
+
+      &__login {
+        background: linear-gradient(180deg, $cMain, $cMainHover);
+        padding: 10px 50px;
+        border-radius: 50px;
+        color: $cWhite;
+        box-shadow: 0 5px 5px rgba($cBlack, .2);
+        @include transition;
+
+        &:hover {
+          box-shadow: 0 5px 20px rgba($cBlack, .5);
+        }
+      }
+    }
+  }
+
+  &_offer {
+    color: $cWhite;
+    padding-left: 60px;
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    h1 {
+      // font-weight: normal;
+      font-size: 42px;
+      line-height: 40px;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    &__button {
+      background: linear-gradient(180deg, $cMain, $cMainHover);
+      padding: 15px 40px;
+      border-radius: 50px;
+      color: $cWhite;
+      max-width: 290px;
+      margin-top: 30px;
+      text-align: center;
+      font-size: 18px;
+      box-shadow: 0 5px 5px rgba($cBlack, .2);
+      @include transition;
+
+      &:hover {
+        box-shadow: 0 5px 20px rgba($cBlack, .5);
+      }
+    }
+  }
+}
+
+// end Home
