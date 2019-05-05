@@ -1,0 +1,157 @@
+.overlay {
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  @include flex(center, center);
+
+  &__background {
+    background: rgba($cBlack, .8);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__wrapper {
+    background: $cWhite;
+    max-width: 500px;
+    width: 500px;
+    padding: 30px 30px 30px;
+    position: relative;
+    animation: show .3s linear;
+
+    &__title {
+      @include font-style(bold, 28px, 1, $cTextTitle);
+      margin-bottom: 5px;
+    }
+
+    label {
+      margin-top: 15px;
+      display: inline-block;
+      width: 100%;
+      @include font-style(normal, 14px, 1, $cTextSmall);
+    }
+
+    input[type=text],
+    textarea {
+      @include font-style(normal, 16px, 1, $cText);
+      margin-top: 5px;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid rgba($cGray, .6);
+      @include transition;
+
+      &:focus {
+        border-color: $cMain;
+      }
+    }
+
+    textarea {
+      line-height: 1.5;
+      vertical-align: top;
+      resize: none;
+      height: 90px;
+    }
+
+    &_subtitle {
+      @include font-style(normal, 14px, 1, $cTextSmall);
+      margin-top: 15px;
+    }
+
+    &_list {
+      margin-top: 5px;
+
+      li {
+        @include flex(space-between, center);
+        padding: 5px 10px;
+        border: 1px solid rgba($cGray, .6);
+        border-top: none;
+
+        &:first-child {
+          border-top: 1px solid rgba($cGray, .6);
+        }
+      }
+
+      &_status {
+        background: $cMain;
+        border-radius: 4px;
+        padding: 5px 0;
+        width: 90px;
+        color: $cWhite;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      &_delete {
+        border-radius: 4px;
+        padding: 5px 0;
+        color: $cWhite;
+        background: rgba($cRed, .8);
+        border: none;
+        width: 90px;
+        font-size: 14px;
+        @include transition;
+        cursor: pointer;
+
+        &:hover {
+          background: $cRed;
+        }
+      }
+    }
+  }
+
+  &_btn {
+    width: calc(50% - 5px);
+    padding: 10px;
+    border: none;
+    color: $cWhite;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    @include transition;
+
+    &__delete {
+      margin-left: 5px;
+      background: rgba($cRed, .8);
+
+      &:hover {
+        background: $cRed;
+      }
+    }
+
+    &__save {
+      // margin-left: 15px;
+      margin-top: 10px;
+      width: 100%;
+      background: $cMain;
+      font-size: 18px;
+
+      &:hover {
+        background: $cMainHover;
+      }
+    }
+
+    &__close {
+      margin-right: 5px;
+      background: rgba($cGray, .8);
+
+      &:hover {
+        background: $cGray;
+      }
+    }
+  }
+}
+
+@keyframes show {
+  from {
+    margin-top: 50px;
+  }
+
+  to {
+    margin-top: 0px;
+  }
+}

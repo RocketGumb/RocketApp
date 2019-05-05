@@ -22,8 +22,11 @@ class Tasks extends Component {
 			<Fragment>
 				<div className="pagetitle">Задачи</div>
 				<section className="content_main">
-					<TasksList user={user} tasks={tasks} />
-					<TaskCompleteList tasks={tasks} />
+					<TasksList
+						user={user}
+						tasks={tasks.filter(task => !task.completed)}
+					/>
+					<TaskCompleteList tasks={tasks.filter(task => task.completed)} />
 				</section>
 			</Fragment>
 		);

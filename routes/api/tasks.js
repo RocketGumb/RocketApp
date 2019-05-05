@@ -13,7 +13,11 @@ const Task = require("../../models/task");
 router.get("/:id", auth, (req, res) => {
 	Task.find({
 			'users_id': req.params.id,
-			'project_id': null
+			$or: [{
+				'project_id': null
+			}, {
+				'project_id': ""
+			}]
 		})
 		.then(tasks => res.json(tasks))
 		.catch(error => res.status(404).json({

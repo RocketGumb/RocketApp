@@ -1,28 +1,13 @@
 import React, { Fragment, Component } from "react";
 import { getProjects, getTasksForPoject } from "../actions/projectActions";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 // Components for work with projects
 import ProjectList from "../containers/ProjectList";
-// Components for work with tasks
-import TasksList from "../containers/TasksList";
-import TaskCompleteList from "../containers/TaskCompleteList";
+import Project from "../containers/Project";
 
 // Page with tasks
 class Projects extends Component {
-	// state = {
-	// 	descValue: ""
-	// };
-
-	// descChange = event => {
-	// 	const desc = event.target;
-	// 	this.setState({
-	// 		descValue: desc
-	// 	});
-	// 	console.log(desc);
-	// };
-
 	// Output tasks
 	componentDidMount() {
 		const user = this.props.user;
@@ -61,22 +46,12 @@ class Projects extends Component {
 					</Fragment>
 				) : (
 					// Page for project
-					<Fragment>
-						<div className="pagetitle">
-							{project.title}
-							<div className="subtitle">{project.desc}</div>
-						</div>
-						<div className="breadcrumbs">
-							<Link to="/all/projects" className="link">
-								Проекты
-							</Link>{" "}
-							/ {project.title}
-						</div>
-						<section className="content_main">
-							<TasksList user={user} project={projectID} tasks={tasks} />
-							<TaskCompleteList tasks={tasks} />
-						</section>
-					</Fragment>
+					<Project
+						project={project}
+						user={user}
+						tasks={tasks}
+						projectID={projectID}
+					/>
 				)}
 			</Fragment>
 		);

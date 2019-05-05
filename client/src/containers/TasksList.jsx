@@ -84,8 +84,7 @@ class TasksList extends Component {
 
 	render() {
 		// Get active tasks
-		let tasks = this.props.tasks;
-		tasks = tasks.filter(task => !task.completed);
+		const tasks = this.props.tasks;
 		return (
 			<div className="content_block content_block__big">
 				<div className="content_block_title h2">

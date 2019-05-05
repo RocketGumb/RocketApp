@@ -158,26 +158,40 @@ menu {
   @include font-style(bold, 24px, 1, $cTextTitle);
   @include box-shadow-small;
   position: relative;
+  z-index: 4;
+
+  &__setting {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    font-size: 20px;
+
+    svg {
+      cursor: pointer;
+      margin-left: 20px;
+    }
+  }
 }
 
 .subtitle {
-  margin-top: 5px;
-  margin-bottom: -5px;
+  padding: 10px 30px 15px;
+  background: $cWhite;
   border: none;
   resize: none;
   display: block;
   width: 100% !important;
   height: auto !important;
   overflow: hidden;
-  @include font-style(normal, 14px, 1, $cTextSmall);
+  @include font-style(normal, 14px, 18px, $cTextSmall);
+  z-index: -1;
 }
 
 .breadcrumbs {
-  padding: 15px 30px;
+  padding: 15px 30px 0;
   background: $cWhite;
   @include font-style(normal, 16px, 1, $cText);
-  // @include box-shadow-small;
-  z-index: -1;
+  position: relative;
+  z-index: 3;
 
   .link {
     color: $cMain;
@@ -295,6 +309,6 @@ menu {
 @import 'style/sidebar';
 @import 'style/content';
 @import 'style/project';
+@import 'style/modal';
 @import 'style/footer';
-@import 'style';
 @import 'media';

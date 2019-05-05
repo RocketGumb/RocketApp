@@ -17,8 +17,7 @@ class TaskCompleteList extends Component {
 
 	render() {
 		// Get completed tasks
-		let tasks = this.props.tasks;
-		tasks = tasks.filter(task => task.completed);
+		const tasks = this.props.tasks;
 
 		return (
 			<div className="content_block content_block__big">
