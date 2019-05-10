@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { Link } from "react-router-dom";
 
 // Wrapper for menu items on component Sidebar
 function TaskItem({
@@ -10,7 +9,8 @@ function TaskItem({
 	completeTask,
 	priorityChange,
 	priorityIsOpen,
-	togglePriorityWindow
+	togglePriorityWindow,
+	openModal
 }) {
 	const { id, title, priority } = payload;
 	const classPriotity = `priority${priority}`;
@@ -23,9 +23,9 @@ function TaskItem({
 				className="checkbox-template"
 				value={id}
 			/>
-			<Link to={`/all/tasks/${id}`}>
-				<p className="tasks-list_item__title">{title}</p>
-			</Link>
+			<p onClick={openModal} className="tasks-list_item__title">
+				{title}
+			</p>
 			<p
 				className="tasks-list_item__priority"
 				onClick={togglePriorityWindow.bind(this, id)}

@@ -10,14 +10,10 @@ const Task = require("../../models/task");
  * @desc   Get all tasks for users
  * @access Private
  */
-router.get("/:id", auth, (req, res) => {
+router.get("/", auth, (req, res) => {
 	Task.find({
-			'users_id': req.params.id,
-			$or: [{
-				'project_id': null
-			}, {
-				'project_id': ""
-			}]
+			users: req.query.email,
+			project_id: ""
 		})
 		.then(tasks => res.json(tasks))
 		.catch(error => res.status(404).json({
@@ -59,8 +55,8 @@ router.put('/:id', auth, (req, res) => {
  */
 router.post("/", auth, (req, res) => {
 	const newTask = new Task({
-		users_id: [
-			req.body.id
+		users: [
+			req.body.email
 		],
 		title: req.body.title,
 		project_id: req.body.project

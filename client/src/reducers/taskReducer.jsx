@@ -17,7 +17,8 @@ export default function(state = initialState, action) {
 					id: task._id,
 					title: task.title,
 					priority: task.priority,
-					completed: task.completed
+					completed: task.completed,
+					users: task.users
 				};
 			});
 			return { tasks: [...tasks] };
@@ -31,7 +32,8 @@ export default function(state = initialState, action) {
 							title: data.title,
 							priority: data.priority,
 							completed: data.completed,
-							project: data.project_id
+							project: data.project_id,
+							users: data.users
 						};
 					}
 					return task;
@@ -46,7 +48,8 @@ export default function(state = initialState, action) {
 						title: action.payload.title,
 						priority: 0,
 						completed: false,
-						project: action.payload.project
+						project: action.payload.project,
+						users: action.payload.users
 					}
 				]
 			};

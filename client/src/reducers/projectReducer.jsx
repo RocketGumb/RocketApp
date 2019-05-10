@@ -1,9 +1,12 @@
 import {
 	GET_PROJECTS,
 	GET_TASKS_FOR_PROJECTS,
+	CLEAR_TASKS_FOR_PROJECTS,
 	ADD_TASK_TO_PROJECT,
 	UPDATE_TASK_TO_PROJECT,
-	ADD_PROJECT
+	ADD_PROJECT,
+	UPDATE_PROJECT,
+	DELETE_PROJECT
 } from "../actions/types";
 
 const initialState = {
@@ -18,12 +21,18 @@ export default function(state = initialState, action) {
 				return {
 					id: project._id,
 					title: project.title,
-					desc: project.desc
+					desc: project.desc,
+					users: project.users
 				};
 			});
 			return {
-				projects,
-				projectTasks: [...state.projectTasks]
+				projectTasks: [...state.projectTasks],
+				projects
+			};
+		case CLEAR_TASKS_FOR_PROJECTS:
+			return {
+				projects: [...state.projects],
+				projectTasks: []
 			};
 		case ADD_PROJECT:
 			return {
@@ -32,7 +41,8 @@ export default function(state = initialState, action) {
 					{
 						id: action.payload._id,
 						title: action.payload.title,
-						desc: action.payload.desc
+						desc: action.payload.desc,
+						users: action.payload.users
 					}
 				],
 				projectTasks: [...state.projectTasks]
@@ -80,7 +90,30 @@ export default function(state = initialState, action) {
 			});
 			return {
 				projects: [...state.projects],
-				projectTasks
+				projectTasks: [...state.projectTasks, ...projectTasks]
+			};
+		case UPDATE_PROJECT:
+			const dataUpdate = action.payload.data;
+			return {
+				projects: state.projects.map(project => {
+					if (dataUpdate._id === project.id) {
+						project = {
+							...project,
+							title: dataUpdate.title,
+							desc: dataUpdate.desc,
+							users: dataUpdate.users
+						};
+					}
+					return project;
+				}),
+				projectTasks: [...state.projectTasks]
+			};
+		case DELETE_PROJECT:
+			return {
+				projects: state.projects.filter(
+					project => project.id !== action.payload.id
+				),
+				projectTasks: [...state.projectTasks]
 			};
 		default:
 			return state;

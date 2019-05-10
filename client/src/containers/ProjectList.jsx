@@ -11,10 +11,11 @@ class ProjectList extends Component {
 		event.preventDefault();
 
 		const id = this.props.user._id,
+			email = this.props.user.email,
 			title = event.target.title.value;
 
 		if (title) {
-			this.props.addProject(id, title);
+			this.props.addProject(id, email, title);
 			event.target.title.value = "";
 		}
 	};
@@ -50,7 +51,7 @@ class ProjectList extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		addProject: (id, title) => dispatch(addProject(id, title))
+		addProject: (id, email, title) => dispatch(addProject(id, email, title))
 	};
 };
 

@@ -5,13 +5,15 @@ const Schema = mongoose.Schema;
 const ProjectSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 60
   },
   desc: {
     type: String,
-    default: "Новый проект"
+    default: "Новый проект",
+    maxlength: 200
   },
-  users_id: {
+  users: {
     type: Array,
     required: true
   }

@@ -12,7 +12,7 @@ class Tasks extends Component {
 	componentDidMount() {
 		const user = this.props.user;
 		if (user) {
-			this.props.getTasks(user._id);
+			this.props.getTasks(user.email);
 		}
 	}
 
@@ -42,7 +42,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getTasks: id => dispatch(getTasks(id))
+		getTasks: email => dispatch(getTasks(email))
 	};
 };
 

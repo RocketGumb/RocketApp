@@ -35,22 +35,22 @@ class Register extends Component {
 	}
 
 	// Wrapper for error message
-	errorMessage(message) {
+	errorMessage = message => {
 		if (message) {
 			return <p className="error-message">{message}</p>;
 		}
 		return;
-	}
+	};
 
 	// Update state on change fields
-	fieldChange(event) {
+	fieldChange = event => {
 		this.setState({
 			[event.target.id]: event.target.value
 		});
-	}
+	};
 
 	// Validate fields in form
-	checkForError() {
+	checkForError = () => {
 		let isError = false;
 		const errors = {};
 		const { name, email, password } = this.state;
@@ -89,9 +89,9 @@ class Register extends Component {
 		}
 
 		return isError;
-	}
+	};
 
-	registerUser(event) {
+	registerUser = event => {
 		event.preventDefault();
 
 		// Reset error message
@@ -115,10 +115,11 @@ class Register extends Component {
 		}
 
 		if (!error) {
-			const { name, email, password } = this.state;
+			const { name, password } = this.state;
+			const email = this.state.email.toLowerCase();
 			this.props.register({ name, email, password });
 		}
-	}
+	};
 
 	render() {
 		const { name, email, password } = this.state;
@@ -141,14 +142,14 @@ class Register extends Component {
 						</p>
 					</div>
 					<div className="auth_block__form">
-						<form noValidate onSubmit={this.registerUser.bind(this)}>
+						<form noValidate onSubmit={this.registerUser}>
 							<FieldForm
 								type="text"
 								id="name"
 								labelText="Ваше имя"
 								value={name}
 								errorMessage={nameError}
-								onChange={this.fieldChange.bind(this)}
+								onChange={this.fieldChange}
 							/>
 							<FieldForm
 								type="text"
@@ -156,7 +157,7 @@ class Register extends Component {
 								labelText="Ваш email"
 								value={email}
 								errorMessage={emailError}
-								onChange={this.fieldChange.bind(this)}
+								onChange={this.fieldChange}
 							/>
 							<FieldForm
 								type="password"
@@ -164,7 +165,7 @@ class Register extends Component {
 								labelText="Пароль"
 								value={password}
 								errorMessage={passwordError}
-								onChange={this.fieldChange.bind(this)}
+								onChange={this.fieldChange}
 							/>
 							<label className="label-row">
 								<input

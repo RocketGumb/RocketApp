@@ -7,11 +7,12 @@ function ProjectItem({ payload, tasks }) {
 	const totalTasks = tasks.length;
 	const completedTasks = tasks.filter(task => task.completed).length;
 	return (
-		<div className="project content_block content_block__medium">
+		<Link
+			className="project content_block content_block__medium"
+			to={`/all/projects/${id}`}
+		>
 			<div className="project_name">
-				<Link to={`/all/projects/${id}`}>
-					<h2 className="project_name_title">{title}</h2>
-				</Link>
+				<h2 className="project_name_title">{title}</h2>
 				<h4 className="project_name_subtitle">{desc}</h4>
 			</div>
 			<div className="project_count">
@@ -24,7 +25,7 @@ function ProjectItem({ payload, tasks }) {
 				/>
 				<div className="project_count_bar" />
 			</div>
-		</div>
+		</Link>
 	);
 }
 

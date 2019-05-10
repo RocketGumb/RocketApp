@@ -82,7 +82,8 @@ class Login extends Component {
 		let error = this.checkForError();
 
 		if (!error) {
-			const { email, password } = this.state;
+			const { password } = this.state;
+			const email = this.state.email.toLowerCase();
 			this.props.login({ email, password });
 		}
 	}

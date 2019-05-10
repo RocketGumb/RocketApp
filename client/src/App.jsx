@@ -40,7 +40,7 @@ class App extends Component {
 						redirectPath="/all"
 					/>
 					<PrivateRoute
-						token={this.props.token !== ""}
+						token={this.props.token !== null}
 						path="/all"
 						component={All}
 						redirectPath="/signin"

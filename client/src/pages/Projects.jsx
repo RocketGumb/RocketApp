@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from "react";
-import { getProjects, getTasksForPoject } from "../actions/projectActions";
+import { getProjects, clearTasksForProjects } from "../actions/projectActions";
 import { connect } from "react-redux";
 
 // Components for work with projects
@@ -10,10 +10,10 @@ import Project from "../containers/Project";
 class Projects extends Component {
 	// Output tasks
 	componentDidMount() {
-		const user = this.props.user;
+		const { user } = this.props;
 		if (user) {
-			this.props.getProjects(user._id);
-			this.props.getTasksForPoject(user._id);
+			this.props.clearTasksForProjects();
+			this.props.getProjects(user.email);
 		}
 	}
 
@@ -68,8 +68,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getProjects: id => dispatch(getProjects(id)),
-		getTasksForPoject: id => dispatch(getTasksForPoject(id))
+		getProjects: email => dispatch(getProjects(email)),
+		clearTasksForProjects: () => dispatch(clearTasksForProjects())
 	};
 };
 

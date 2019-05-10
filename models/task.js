@@ -5,12 +5,13 @@ const Schema = mongoose.Schema;
 const TaskSchema = new Schema({
 	title: {
 		type: String,
-		required: true
+		required: true,
+		maxlength: 60
 	},
 	desc: {
 		type: String
 	},
-	users_id: {
+	users: {
 		type: Array,
 		required: true
 	},

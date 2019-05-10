@@ -3,6 +3,8 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { connect } from "react-redux";
 import { updateTask, addTask } from "../actions/taskActions";
 import TaskItem from "../components/tasks/TaskItem";
+import Modal from "./Modal";
+import { Link } from "react-router-dom";
 // Form for add task
 import FormToAdd from "../components/FormToAdd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,24 +14,20 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 class TasksList extends Component {
 	state = {
 		priorityIsOpen: null,
-		sortMethod: null
+		sortMethod: null,
+		modalIsOpen: false
 	};
 
 	// Add task
 	addTask = event => {
 		event.preventDefault();
-
-		const id = this.props.user._id,
+		const email = this.props.user.email,
 			title = event.target.title.value;
-
 		let project = "";
 
 		if (this.props.project) project = this.props.project;
-
-		console.log("project", project);
-
 		if (title) {
-			this.props.addTask(id, title, project);
+			this.props.addTask(email, title, project);
 			event.target.title.value = "";
 		}
 	};
@@ -80,6 +78,12 @@ class TasksList extends Component {
 			default:
 				return;
 		}
+	};
+
+	openModal = () => {
+		this.setState({
+			modalIsOpen: true
+		});
 	};
 
 	render() {
@@ -134,6 +138,7 @@ class TasksList extends Component {
 										)}
 										completeTask={this.completeTask}
 										payload={{ id, title, priority }}
+										openModal={this.openModal}
 									/>
 								))
 						) : (
@@ -144,6 +149,33 @@ class TasksList extends Component {
 					</ReactCSSTransitionGroup>
 				</ul>
 				<FormToAdd add={this.addTask} placeholder="Добавить задачу..." />
+				{this.state.modalIsOpen && (
+					<Modal title="Редактировать задачу" modalClose={this.modalClose}>
+						<form onSubmit={this.projectUpdate}>
+							<label>
+								Название
+								<input type="text" name="title" defaultValue="Задача" />
+							</label>
+							<button
+								type="button"
+								onClick={this.modalClose}
+								className="overlay_btn overlay_btn__close"
+							>
+								Закрыть
+							</button>
+							<Link
+								to="/all/tasks"
+								onClick={this.deleteProject}
+								className="overlay_btn overlay_btn__delete"
+							>
+								Удалить
+							</Link>
+							<button type="submit" className="overlay_btn overlay_btn__save">
+								Сохранить
+							</button>
+						</form>
+					</Modal>
+				)}
 			</div>
 		);
 	}
@@ -152,7 +184,7 @@ class TasksList extends Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		updateTask: (id, data) => dispatch(updateTask(id, data)),
-		addTask: (id, title, project) => dispatch(addTask(id, title, project))
+		addTask: (email, title, project) => dispatch(addTask(email, title, project))
 	};
 };
 

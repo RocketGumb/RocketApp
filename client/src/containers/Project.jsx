@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import { updateProject, deleteProject } from "../actions/projectActions";
 // Components for work with tasks
 import TasksList from "../containers/TasksList";
 import TaskCompleteList from "../containers/TaskCompleteList";
@@ -15,6 +17,7 @@ class Project extends Component {
 		}
 	};
 
+	// Show modal window with editor to project
 	editorShow = () => {
 		this.setState({
 			isOpen: {
@@ -23,6 +26,7 @@ class Project extends Component {
 		});
 	};
 
+	// Show modal window with members to project
 	membersShow = () => {
 		this.setState({
 			isOpen: {
@@ -31,6 +35,7 @@ class Project extends Component {
 		});
 	};
 
+	// Close all modal window
 	modalClose = () => {
 		this.setState({
 			isOpen: {
@@ -38,6 +43,64 @@ class Project extends Component {
 				members: false
 			}
 		});
+	};
+
+	projectUpdate = event => {
+		event.preventDefault();
+		const { title, desc } = event.target;
+
+		const data = {
+			title: title.value,
+			desc: desc.value
+		};
+		// If the project name is not empty, save and close modal window
+		if (data.title !== "") {
+			this.props.updateProject(this.props.project.id, data);
+			this.setState({
+				isOpen: {
+					editor: false
+				}
+			});
+		}
+	};
+
+	// Add user to project
+	addUser = event => {
+		event.preventDefault();
+		const { user } = event.target;
+		const email = user.value;
+		// For check email
+		const reg = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
+		const { project } = this.props;
+
+		// Check email
+		if (email && reg.test(email)) {
+			let isError = false;
+			console.log(project.users);
+			project.users.forEach(user => {
+				if (email === user) isError = true;
+			});
+			if (!isError) {
+				const data = {
+					user: email
+				};
+				this.props.updateProject(this.props.project.id, data);
+				event.target.user.value = "";
+			}
+		}
+	};
+
+	// Delete user from project
+	deleteUser = email => {
+		const data = {
+			deleteUser: email
+		};
+		this.props.updateProject(this.props.project.id, data);
+	};
+
+	// Delete project
+	deleteProject = () => {
+		this.props.deleteProject(this.props.project.id);
 	};
 
 	render() {
@@ -68,30 +131,34 @@ class Project extends Component {
 				</section>
 				{this.state.isOpen.editor && (
 					<Modal title="Редактировать проект" modalClose={this.modalClose}>
-						<form>
+						<form onSubmit={this.projectUpdate}>
 							<label>
 								Название
-								<input type="text" defaultValue={project.title} />
+								<input type="text" name="title" defaultValue={project.title} />
 							</label>
 							<label>
-								Описание
-								<textarea defaultValue={project.desc} />
+								Описание (Максимум 200 символов)
+								<textarea
+									name="desc"
+									maxLength="200"
+									defaultValue={project.desc}
+								/>
 							</label>
 							<button
 								type="button"
 								onClick={this.modalClose}
 								className="overlay_btn overlay_btn__close"
 							>
-								Отменить
+								Закрыть
 							</button>
-							<button
-								type="button"
-								onClick={this.modalClose}
+							<Link
+								to="/all/projects"
+								onClick={this.deleteProject}
 								className="overlay_btn overlay_btn__delete"
 							>
 								Удалить
-							</button>
-							<button className="overlay_btn overlay_btn__save">
+							</Link>
+							<button type="submit" className="overlay_btn overlay_btn__save">
 								Сохранить
 							</button>
 						</form>
@@ -101,16 +168,42 @@ class Project extends Component {
 					<Modal title="Добавить участников" modalClose={this.modalClose}>
 						<p className="overlay__wrapper_subtitle">Список участников</p>
 						<ul className="overlay__wrapper_list">
-							<li>
-								g0lubef@yandex.ru
-								<div className="overlay__wrapper_list_status">Владелец</div>
-							</li>
-							<li>
-								dimagolubev35@gmail.com
-								<button type="button" className="overlay__wrapper_list_delete">
-									Удалить
+							{project.users.map((user, index) => (
+								<li key={user}>
+									{user}
+									{index === 0 ? (
+										<div className="overlay__wrapper_list_status">Владелец</div>
+									) : (
+										<button
+											type="button"
+											className="overlay__wrapper_list_delete"
+											onClick={this.deleteUser.bind(this, user)}
+										>
+											Удалить
+										</button>
+									)}
+								</li>
+							))}
+							<form onSubmit={this.addUser}>
+								<label>
+									Добавить участника
+									<input
+										type="email"
+										name="user"
+										placeholder="Почта участника"
+									/>
+								</label>
+								<button
+									type="button"
+									onClick={this.modalClose}
+									className="overlay_btn overlay_btn__close"
+								>
+									Закрыть
 								</button>
-							</li>
+								<button type="submit" className="overlay_btn overlay_btn__add">
+									Добавить
+								</button>
+							</form>
 						</ul>
 					</Modal>
 				)}
@@ -119,4 +212,14 @@ class Project extends Component {
 	}
 }
 
-export default Project;
+const mapDispatchToProps = dispatch => {
+	return {
+		updateProject: (id, data) => dispatch(updateProject(id, data)),
+		deleteProject: id => dispatch(deleteProject(id))
+	};
+};
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(Project);

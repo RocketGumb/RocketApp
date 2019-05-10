@@ -37,6 +37,7 @@
     }
 
     input[type=text],
+    input[type=email],
     textarea {
       @include font-style(normal, 16px, 1, $cText);
       margin-top: 5px;
@@ -106,6 +107,8 @@
 
   &_btn {
     width: calc(50% - 5px);
+    display: inline-block;
+    text-align: center;
     padding: 10px;
     border: none;
     color: $cWhite;
@@ -129,6 +132,15 @@
       width: 100%;
       background: $cMain;
       font-size: 18px;
+
+      &:hover {
+        background: $cMainHover;
+      }
+    }
+
+    &__add {
+      margin-left: 5px;
+      background: $cMain;
 
       &:hover {
         background: $cMainHover;

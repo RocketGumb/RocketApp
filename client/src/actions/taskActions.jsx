@@ -10,9 +10,9 @@ import axios from "axios";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorAction";
 
-export const getTasks = id => (dispatch, getState) => {
+export const getTasks = email => (dispatch, getState) => {
 	axios
-		.get(`/api/tasks/${id}`, tokenConfig(getState))
+		.get(`/api/tasks?email=${email}`, tokenConfig(getState))
 		.then(res =>
 			dispatch({
 				type: GET_TASKS,
@@ -44,17 +44,18 @@ export const updateTask = (id, data) => (dispatch, getState) => {
 		);
 };
 
-export const addTask = (id, title, project) => (dispatch, getState) => {
+export const addTask = (email, title, project) => (dispatch, getState) => {
 	axios
-		.post("/api/tasks", { id, title, project }, tokenConfig(getState))
+		.post("/api/tasks", { email, title, project }, tokenConfig(getState))
 		.then(res => {
-			dispatch({
-				type: ADD_TASK,
-				payload: res.data
-			});
-			if (project) {
+			if (project !== "") {
 				dispatch({
 					type: ADD_TASK_TO_PROJECT,
+					payload: res.data
+				});
+			} else {
+				dispatch({
+					type: ADD_TASK,
 					payload: res.data
 				});
 			}
