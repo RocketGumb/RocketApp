@@ -6,7 +6,8 @@ import {
 	UPDATE_TASK_TO_PROJECT,
 	ADD_PROJECT,
 	UPDATE_PROJECT,
-	DELETE_PROJECT
+	DELETE_PROJECT,
+	DELETE_TASK
 } from "../actions/types";
 
 const initialState = {
@@ -57,7 +58,8 @@ export default function(state = initialState, action) {
 						title: action.payload.title,
 						priority: 0,
 						completed: false,
-						project: action.payload.project_id
+						project: action.payload.project_id,
+						executor: action.payload.executor
 					}
 				]
 			};
@@ -72,7 +74,8 @@ export default function(state = initialState, action) {
 							title: data.title,
 							priority: data.priority,
 							completed: data.completed,
-							project: data.project_id
+							project: data.project_id,
+							executor: data.executor
 						};
 					}
 					return task;
@@ -85,7 +88,8 @@ export default function(state = initialState, action) {
 					title: task.title,
 					priority: task.priority,
 					completed: task.completed,
-					project: task.project_id
+					project: task.project_id,
+					executor: task.executor
 				};
 			});
 			return {
@@ -114,6 +118,13 @@ export default function(state = initialState, action) {
 					project => project.id !== action.payload.id
 				),
 				projectTasks: [...state.projectTasks]
+			};
+		case DELETE_TASK:
+			return {
+				projects: [...state.projects],
+				projectTasks: state.projectTasks.filter(
+					task => task.id !== action.payload.id
+				)
 			};
 		default:
 			return state;

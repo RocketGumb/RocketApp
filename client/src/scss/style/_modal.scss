@@ -71,6 +71,12 @@
         padding: 5px 10px;
         border: 1px solid rgba($cGray, .6);
         border-top: none;
+        cursor: pointer;
+        @include transition;
+
+        &.active {
+          color: $cMain;
+        }
 
         &:first-child {
           border-top: 1px solid rgba($cGray, .6);

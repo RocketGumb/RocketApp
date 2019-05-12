@@ -33,7 +33,7 @@ export default function(state = initialState, action) {
 							priority: data.priority,
 							completed: data.completed,
 							project: data.project_id,
-							users: data.users
+							users: data.user
 						};
 					}
 					return task;

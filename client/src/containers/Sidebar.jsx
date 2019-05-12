@@ -5,7 +5,6 @@ import SidebarLink from "../components/SidebarLink";
 
 // Icons for menu items
 import {
-	faHome,
 	faCheckSquare,
 	faChartBar,
 	faList
@@ -21,14 +20,9 @@ class Sidebar extends Component {
 					<menu>
 						<SidebarLink
 							exact
-							icon={faHome}
-							title={sidebarState ? "Главная" : ""}
-							to="/all"
-						/>
-						<SidebarLink
 							icon={faCheckSquare}
 							title={sidebarState ? "Задачи" : ""}
-							to="/all/tasks"
+							to="/all"
 						/>
 						<SidebarLink
 							icon={faList}

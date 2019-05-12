@@ -10,9 +10,9 @@ function TaskItem({
 	priorityChange,
 	priorityIsOpen,
 	togglePriorityWindow,
-	openModal
+	modalOpen
 }) {
-	const { id, title, priority } = payload;
+	const { id, title, priority, project, executor } = payload;
 	const classPriotity = `priority${priority}`;
 	const priorityValue = [1, 2, 3];
 	return (
@@ -23,8 +23,14 @@ function TaskItem({
 				className="checkbox-template"
 				value={id}
 			/>
-			<p onClick={openModal} className="tasks-list_item__title">
+			<p
+				onClick={modalOpen.bind(this, id, title, project, executor)}
+				className="tasks-list_item__title"
+			>
 				{title}
+				{executor && (
+					<span className="tasks-list_item__executor">{executor}</span>
+				)}
 			</p>
 			<p
 				className="tasks-list_item__priority"

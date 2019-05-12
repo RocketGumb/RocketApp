@@ -18,7 +18,7 @@ class Project extends Component {
 	};
 
 	// Show modal window with editor to project
-	editorShow = () => {
+	editorOpen = () => {
 		this.setState({
 			isOpen: {
 				editor: true
@@ -27,7 +27,7 @@ class Project extends Component {
 	};
 
 	// Show modal window with members to project
-	membersShow = () => {
+	membersOpen = () => {
 		this.setState({
 			isOpen: {
 				members: true
@@ -110,8 +110,8 @@ class Project extends Component {
 				<div className="pagetitle">
 					{project.title}
 					<div className="pagetitle__setting">
-						<FontAwesomeIcon icon={faUserPlus} onClick={this.membersShow} />
-						<FontAwesomeIcon icon={faEllipsisH} onClick={this.editorShow} />
+						<FontAwesomeIcon icon={faUserPlus} onClick={this.membersOpen} />
+						<FontAwesomeIcon icon={faEllipsisH} onClick={this.editorOpen} />
 					</div>
 				</div>
 				<div className="breadcrumbs">
@@ -126,6 +126,7 @@ class Project extends Component {
 						user={user}
 						project={projectID}
 						tasks={tasks.filter(task => !task.completed)}
+						executorOn={true}
 					/>
 					<TaskCompleteList tasks={tasks.filter(task => task.completed)} />
 				</section>
@@ -184,27 +185,23 @@ class Project extends Component {
 									)}
 								</li>
 							))}
-							<form onSubmit={this.addUser}>
-								<label>
-									Добавить участника
-									<input
-										type="email"
-										name="user"
-										placeholder="Почта участника"
-									/>
-								</label>
-								<button
-									type="button"
-									onClick={this.modalClose}
-									className="overlay_btn overlay_btn__close"
-								>
-									Закрыть
-								</button>
-								<button type="submit" className="overlay_btn overlay_btn__add">
-									Добавить
-								</button>
-							</form>
 						</ul>
+						<form onSubmit={this.addUser}>
+							<label>
+								Добавить участника
+								<input type="email" name="user" placeholder="Почта участника" />
+							</label>
+							<button
+								type="button"
+								onClick={this.modalClose}
+								className="overlay_btn overlay_btn__close"
+							>
+								Закрыть
+							</button>
+							<button type="submit" className="overlay_btn overlay_btn__add">
+								Добавить
+							</button>
+						</form>
 					</Modal>
 				)}
 			</Fragment>

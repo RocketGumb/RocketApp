@@ -75,12 +75,12 @@
       }
 
       &_title {
-        padding: 20px;
+        padding: 18px 20px;
         position: relative;
         @include box-shadow-small;
 
         &.h2 {
-          @include font-style(bold, 18px, 1, $cTextTitle);
+          @include font-style(bold, 20px, 1, $cTextTitle);
         }
 
         &_setting {
@@ -117,6 +117,17 @@
 
         }
       }
+
+      &_executor {
+        position: absolute;
+        right: 55px;
+        top: 0;
+        width: 275px;
+        @include font-style(500, 17px, 56px, $cText);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
 
     .tasks-list {
@@ -144,7 +155,19 @@
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
-          padding-right: 90px;
+          padding-right: 325px;
+          cursor: pointer;
+        }
+
+        &__executor {
+          position: absolute;
+          right: 55px;
+          top: 0;
+          width: 275px;
+          line-height: 48px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
 
         &__more-info,

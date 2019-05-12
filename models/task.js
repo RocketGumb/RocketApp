@@ -11,6 +11,9 @@ const TaskSchema = new Schema({
 	desc: {
 		type: String
 	},
+	executor: {
+		type: String
+	},
 	users: {
 		type: Array,
 		required: true

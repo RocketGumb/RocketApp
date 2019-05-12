@@ -3,16 +3,12 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { loadUser } from "../actions/authActions";
 
-import Header from "./template/Header";
+import Header from "../containers/Header";
 import Sidebar from "../containers/Sidebar";
 import Tasks from "./Tasks";
 import Projects from "./Projects";
 import Charts from "./Charts";
-import Footer from "./template/Footer";
-
-const NotFound = () => {
-	return <h1>NotFound</h1>;
-};
+import Footer from "../containers/Footer";
 
 class All extends Component {
 	// Init user
@@ -29,10 +25,9 @@ class All extends Component {
 					<Sidebar />
 					<section className={sidebarState ? "content" : "content compact"}>
 						<Switch>
+							<Route exact path="/all" component={Tasks} />
 							<Route exact path="/all/projects" component={Projects} />
 							<Route path="/all/projects/:id" component={Projects} />
-							<Route exact path="/all/tasks" component={Tasks} />
-							<Route path="/all/tasks/:id" component={NotFound} />
 							<Route path="/all/charts" component={Charts} />
 						</Switch>
 						<Footer />

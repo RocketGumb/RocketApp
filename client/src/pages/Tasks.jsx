@@ -20,11 +20,12 @@ class Tasks extends Component {
 		const { tasks, user } = this.props;
 		return (
 			<Fragment>
-				<div className="pagetitle">Задачи</div>
+				<div className="pagetitle">Входящие задачи</div>
 				<section className="content_main">
 					<TasksList
 						user={user}
 						tasks={tasks.filter(task => !task.completed)}
+						executorOn={false}
 					/>
 					<TaskCompleteList tasks={tasks.filter(task => task.completed)} />
 				</section>

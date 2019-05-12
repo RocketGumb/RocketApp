@@ -58,6 +58,7 @@ router.post("/", auth, (req, res) => {
 		users: [
 			req.body.email
 		],
+		executor: req.body.email,
 		title: req.body.title,
 		project_id: req.body.project
 	});

@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { connect } from "react-redux";
-import { updateTask, addTask } from "../actions/taskActions";
+import { updateTask, addTask, deleteTask } from "../actions/taskActions";
 import TaskItem from "../components/tasks/TaskItem";
 import Modal from "./Modal";
-import { Link } from "react-router-dom";
 // Form for add task
 import FormToAdd from "../components/FormToAdd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +14,13 @@ class TasksList extends Component {
 	state = {
 		priorityIsOpen: null,
 		sortMethod: null,
-		modalIsOpen: false
+		modalIsOpen: false,
+		currentTask: {
+			id: "",
+			title: "",
+			users: [],
+			executor: ""
+		}
 	};
 
 	// Add task
@@ -30,6 +35,14 @@ class TasksList extends Component {
 			this.props.addTask(email, title, project);
 			event.target.title.value = "";
 		}
+	};
+
+	// Delete task and close modal open
+	deleteTask = id => {
+		this.props.deleteTask(id);
+		this.setState({
+			modalIsOpen: false
+		});
 	};
 
 	// Complete task
@@ -48,6 +61,35 @@ class TasksList extends Component {
 			priority: event.target.value
 		};
 		this.props.updateTask(id, data);
+	};
+
+	// Change executor for task
+	executorChange = (id, user) => {
+		const data = {
+			executor: user
+		};
+		this.setState({
+			currentTask: {
+				...this.state.currentTask,
+				executor: user
+			}
+		});
+		this.props.updateTask(id, data);
+	};
+
+	// Change the title of the task
+	titleChange = event => {
+		event.preventDefault();
+		const id = event.target.id.value;
+		const data = {
+			title: event.target.title.value
+		};
+		if (data.title) {
+			this.props.updateTask(id, data);
+			this.setState({
+				modalIsOpen: false
+			});
+		}
 	};
 
 	// Show & hide the window for change priority
@@ -80,19 +122,49 @@ class TasksList extends Component {
 		}
 	};
 
-	openModal = () => {
+	// Open modal window for edit task
+	modalOpen = (id, title, project, executor) => {
+		let users = [];
+		let currentExecutor = "";
+		if (project) {
+			const projectTask = this.props.projects.find(
+				theProject => theProject.id === project
+			);
+			users = projectTask.users;
+		}
+		if (executor) {
+			currentExecutor = executor;
+		}
 		this.setState({
-			modalIsOpen: true
+			modalIsOpen: true,
+			currentTask: {
+				id,
+				title,
+				users,
+				executor: currentExecutor
+			}
+		});
+	};
+
+	// Close modal window
+	modalClose = () => {
+		this.setState({
+			modalIsOpen: false
 		});
 	};
 
 	render() {
 		// Get active tasks
-		const tasks = this.props.tasks;
+		const { tasks, executorOn } = this.props;
+		// Get info to current task for edit
+		const { currentTask } = this.state;
 		return (
 			<div className="content_block content_block__big">
 				<div className="content_block_title h2">
-					Входящие задачи
+					Задачи
+					{executorOn && (
+						<span className="content_block_executor">Исполнитель</span>
+					)}
 					<div
 						className="content_block_title_setting"
 						onClick={this.togglePriorityWindow.bind(this, "sort")}
@@ -124,10 +196,10 @@ class TasksList extends Component {
 						transitionEnterTimeout={400}
 						transitionLeaveTimeout={200}
 					>
-						{tasks.length ? (
+						{tasks.length && executorOn ? (
 							tasks
 								.sort(this.compare)
-								.map(({ id, title, priority }) => (
+								.map(({ id, title, priority, project, executor }) => (
 									<TaskItem
 										key={id}
 										priorityChange={this.priorityChange}
@@ -137,8 +209,8 @@ class TasksList extends Component {
 											id
 										)}
 										completeTask={this.completeTask}
-										payload={{ id, title, priority }}
-										openModal={this.openModal}
+										payload={{ id, title, priority, project, executor }}
+										modalOpen={this.modalOpen}
 									/>
 								))
 						) : (
@@ -151,11 +223,42 @@ class TasksList extends Component {
 				<FormToAdd add={this.addTask} placeholder="Добавить задачу..." />
 				{this.state.modalIsOpen && (
 					<Modal title="Редактировать задачу" modalClose={this.modalClose}>
-						<form onSubmit={this.projectUpdate}>
+						<form onSubmit={this.titleChange}>
 							<label>
 								Название
-								<input type="text" name="title" defaultValue="Задача" />
+								<input
+									type="text"
+									name="title"
+									defaultValue={currentTask.title}
+								/>
 							</label>
+							{currentTask.users.length > 0 ? (
+								<Fragment>
+									<p className="overlay__wrapper_subtitle">
+										Выберите исполнителя
+									</p>
+									<ul className="overlay__wrapper_list">
+										{currentTask.users.map(user => (
+											<li
+												onClick={this.executorChange.bind(
+													this,
+													currentTask.id,
+													user
+												)}
+												className={
+													currentTask.executor === user ? "active" : ""
+												}
+												key={user}
+											>
+												{user}
+											</li>
+										))}
+									</ul>
+								</Fragment>
+							) : (
+								""
+							)}
+							<input type="hidden" value={currentTask.id} name="id" />
 							<button
 								type="button"
 								onClick={this.modalClose}
@@ -163,13 +266,13 @@ class TasksList extends Component {
 							>
 								Закрыть
 							</button>
-							<Link
-								to="/all/tasks"
-								onClick={this.deleteProject}
+							<button
+								type="button"
+								onClick={this.deleteTask.bind(this, currentTask.id)}
 								className="overlay_btn overlay_btn__delete"
 							>
 								Удалить
-							</Link>
+							</button>
 							<button type="submit" className="overlay_btn overlay_btn__save">
 								Сохранить
 							</button>
@@ -181,14 +284,22 @@ class TasksList extends Component {
 	}
 }
 
+const mapStateToProps = state => {
+	return {
+		projects: state.project.projects
+	};
+};
+
 const mapDispatchToProps = dispatch => {
 	return {
 		updateTask: (id, data) => dispatch(updateTask(id, data)),
-		addTask: (email, title, project) => dispatch(addTask(email, title, project))
+		addTask: (email, title, project) =>
+			dispatch(addTask(email, title, project)),
+		deleteTask: id => dispatch(deleteTask(id))
 	};
 };
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(TasksList);
